@@ -5,7 +5,7 @@
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
-BUILDDIR      = build
+BUILDDIR      = _build
 SOURCEDIR     =  $(dir $(lastword $(MAKEFILE_LIST)))/source
 
 # Internal variables.
