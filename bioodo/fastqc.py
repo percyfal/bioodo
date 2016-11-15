@@ -35,10 +35,10 @@ def resource_fastqc_data(uri, key="Basic_Statistics", **kwargs):
             continue
         logger.debug("Parsing section ", h)
         if h == "Header":
-            d = DataFrame.from_records([[re.sub("#", "", x) for x in re.split("\t", sec.strip())]], index=columns[0])
+            d = DataFrame.from_records([[re.sub("#", "", x) for x in re.split("\t", sec.strip())]])
         else:
             i = 1 if h.startswith("Sequence_Duplication") else 0
-            columns = [re.sub("#", "", x) for x in re.split("\t", sec.split("\n")[i])]
+            columns = [re.sub("#", "", x) for x in re.split("\t", sec.split("\n")[i].strip())]
             d = DataFrame.from_records([re.split("\t", x.strip()) for x in sec.split("\n") if x and not x.startswith("#")],
                                           columns = columns, index=columns[0])
     return d
