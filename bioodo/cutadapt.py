@@ -1,9 +1,4 @@
 # Copyright (C) 2015 by Per Unneberg
-import re
-from blaze import resource, DataFrame
-import numpy as np
-import pandas as pd
-from .pandas import annotate_by_uri
 
 # Potentially add regexp for adapter sections as these are repetitive
 adapter_re = re.compile(r'''

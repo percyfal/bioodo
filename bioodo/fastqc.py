@@ -1,10 +1,4 @@
 # Copyright (C) 2016 by Per Unneberg
-from blaze import resource, DataFrame
-import re
-import pandas as pd
-from .pandas import annotate_by_uri
-import logging
-
 logger = logging.getLogger(__name__)
 
 # Possible section names
