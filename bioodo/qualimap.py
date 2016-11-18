@@ -1,9 +1,4 @@
 # Copyright (C) 2015 by Per Unneberg
-import re
-from blaze import resource, DataFrame
-import pandas as pd
-from .pandas import annotate_by_uri
-
 COVERAGE_PER_CONTIG_COLUMNS = ["chr", "chrlen", "mapped_bases",
                                "mean_coverage", "sd"]
 
