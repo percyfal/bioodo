@@ -25,7 +25,7 @@ COLUMNS = {
 @resource.register('.*samtools_stats.txt', priority=30)
 @annotate_by_uri
 def resource_samtools_stats(uri, key="SN", **kwargs):
-    """Parse fastqc text output file.
+    """Parse samtools stats text output file.
 
     Args:
       uri (str): filename
