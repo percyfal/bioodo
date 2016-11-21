@@ -1,19 +1,9 @@
 # Copyright (C) 2016 by Per Unneberg
-logger = logging.getLogger(__name__)
+import logging
+import pandas as pd
+from bioodo import resource, annotate_by_uri, DataFrame
 
-# Headers: 
-# Summary Numbers. Use `grep ^SN | cut -f 2-` to extract this part.
-# First Fragment Qualitites. Use `grep ^FFQ | cut -f 2-` to extract this part.
-# Last Fragment Qualitites. Use `grep ^LFQ | cut -f 2-` to extract this part.
-# GC Content of first fragments. Use `grep ^GCF | cut -f 2-` to extract this part.
-# GC Content of last fragments. Use `grep ^GCL | cut -f 2-` to extract this part.
-# ACGT content per cycle. Use `grep ^GCC | cut -f 2-` to extract this part. The columns are: cycle, and A,C,G,T counts [%]
-# Insert sizes. Use `grep ^IS | cut -f 2-` to extract this part. The columns are: pairs total, inward oriented pairs, outward oriented pairs, other pairs
-# Read lengths. Use `grep ^RL | cut -f 2-` to extract this part. The columns are: read length, count
-# Indel distribution. Use `grep ^ID | cut -f 2-` to extract this part. The columns are: length, number of insertions, number of deletions
-# Indels per cycle. Use `grep ^IC | cut -f 2-` to extract this part. The columns are: cycle, number of insertions (fwd), .. (rev) , number of deletions (fwd), .. (rev)
-# Coverage distribution. Use `grep ^COV | cut -f 2-` to extract this part.
-# GC-depth. Use `grep ^GCD | cut -f 2-` to extract this part. The columns are: GC%, unique sequence percentiles, 10th, 25th, 50th, 75th and 90th depth percentile
+logger = logging.getLogger(__name__)
 
 SECTION_NAMES = ['SN', 'FFQ', 'LFQ', 'GCF', 'GCL', 'GCC', 'IS', 'RL', 'ID', 'IC', 'COV', 'GCD']
 COLUMNS = {
@@ -23,6 +13,7 @@ COLUMNS = {
     'GCF' : ['percent', 'count'],
     'GCL' : ['percent', 'count'],
     'GCC' : ['cycle', 'A', 'C', 'G', 'T'],
+    'IS' : ['insert_size', 'pairs_total', 'inward_oriented_pairs', 'outward_oriented_pairs', 'other_pairs'],
     'RL' : ['length', 'count'],
     'ID' : ['length', 'insertions', 'deletions'],
     'IC' : ['cycle', 'insertions_fwd', 'insertions_rev', 'deletions_fwd', 'deletions_rev'],
@@ -46,8 +37,14 @@ def resource_samtools_stats(uri, key="SN", **kwargs):
     if key not in SECTION_NAMES:
         raise KeyError("Not in allowed section names; allowed values are {}".format(", ".join(SECTION_NAMES + ["Summary"])))
     with open(uri) as fh:
-        data = [x[1:] for x in fh.readlines() if x.startswith(key)]
-    df = DataFrame.from_records(data)
+        data = [[y for y in x.replace(":", "").strip().split("\t")[1:] if not y.startswith("#")] for x in fh.readlines() if x.startswith(key)]
     if key in ['FFQ', 'LFQ']:
-        df.columns = [''] + [str(x) for x in range(cols)]
+        df = DataFrame.from_records(data)
+        df = df.apply(pd.to_numeric, errors='ignore')
+        df.columns = ['cycle'] + [str(x) for x in range(len(df.columns) - 1)]
+        df = df.set_index('cycle')
+    else:
+        df = DataFrame.from_records(data, columns = COLUMNS[key])
+        df = df.apply(pd.to_numeric, errors='ignore')
+        df = df.set_index(df[COLUMNS[key][0]])
     return df

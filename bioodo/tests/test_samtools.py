@@ -14,7 +14,15 @@ def samtools_stats(tmpdir_factory):
 
 def test_basic_statistics(samtools_stats):
     df = odo(str(samtools_stats), DataFrame)
-    print(df)
-    # assert(list(df.index) == ['Filename', 'File type', 'Encoding', 'Total Sequences', 'Sequences flagged as poor quality', 'Sequence length', '%GC'])
-    # assert(df.loc["Filename", "Value"] == "s1_1.fastq.gz")
+    assert (list(df.index)[0] == 'raw total sequences')
+    assert(df.loc["sequences", "value"] == 50)
 
+
+def test_GCC(samtools_stats):
+    df = odo(str(samtools_stats), DataFrame, key="GCC")
+    assert (df.loc[1]["A"] == 36.0)
+
+
+def test_FFQ(samtools_stats):
+    df = odo(str(samtools_stats), DataFrame, key="FFQ")
+    assert (df.loc[1][32] == 17)
