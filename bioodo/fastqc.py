@@ -1,4 +1,8 @@
 # Copyright (C) 2016 by Per Unneberg
+import re
+import logging
+from bioodo import resource, annotate_by_uri, DataFrame
+
 logger = logging.getLogger(__name__)
 
 # Possible section names

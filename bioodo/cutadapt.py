@@ -1,4 +1,7 @@
 # Copyright (C) 2015 by Per Unneberg
+import re
+import pandas as pd
+from bioodo import resource, annotate_by_uri, DataFrame
 
 # Potentially add regexp for adapter sections as these are repetitive
 adapter_re = re.compile(r'''

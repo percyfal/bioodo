@@ -1,4 +1,8 @@
 # Copyright (C) 2015 by Per Unneberg
+import re
+import pandas as pd
+from bioodo import resource, annotate_by_uri, DataFrame
+
 COVERAGE_PER_CONTIG_COLUMNS = ["chr", "chrlen", "mapped_bases",
                                "mean_coverage", "sd"]
 
