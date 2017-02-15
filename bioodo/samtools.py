@@ -47,4 +47,5 @@ def resource_samtools_stats(uri, key="SN", **kwargs):
         df = DataFrame.from_records(data, columns = COLUMNS[key])
         df = df.apply(pd.to_numeric, errors='ignore')
         df = df.set_index(df[COLUMNS[key][0]])
+        del df[COLUMNS[key][0]]
     return df

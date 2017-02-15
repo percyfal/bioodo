@@ -40,3 +40,8 @@ def resource_bcftools_stats(uri, key="SN", **kwargs):
     df = df.set_index(df[COLUMNS[key][0]])
     del df[COLUMNS[key][0]]
     return df
+
+
+# Aggregation function
+def aggregate_bcftools(infiles, key="SN", **kwargs):
+    pass

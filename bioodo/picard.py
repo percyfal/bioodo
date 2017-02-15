@@ -65,7 +65,7 @@ def resource_hs_metrics(uri, **kwargs):
     return _hist_reader(uri)
 
 
-@resource.register('.+\.dup_metrics')
+@resource.register('.+\.dup_metrics.log')
 @annotate_by_uri
 def resource_dup_metrics(uri, key="metrics", **kwargs):
     (_metrics, hist) = _hist_reader(uri)
