@@ -49,3 +49,21 @@ def resource_samtools_stats(uri, key="SN", **kwargs):
         df = df.set_index(df[COLUMNS[key][0]])
         del df[COLUMNS[key][0]]
     return df
+
+
+
+def aggregate(infiles, outfile, key="SN", regex=None, **kwargs):
+    import odo
+    dflist = []
+    for f in infiles:
+        logger.info("loading {}".format(f))
+        df = odo.odo(f, DataFrame, key=key)
+        if regex:
+            m = re.search(regex, f)
+            if m:
+                logger.info("adding columns {}".format(",".join(["{}={}".format(k, v) for k,v in m.groupdict().items()])))
+                for k, v in m.groupdict().items():
+                    df[k] = v
+        dflist.append(df)
+    df = pd.concat(dflist)
+    df.to_csv(outfile)
