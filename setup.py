@@ -37,6 +37,7 @@ scripts = []
 REQUIRES = [
     'pandas',
     'odo',
+    'blaze',
 ]
                     
 # Integrating pytest with setuptools: see
@@ -77,5 +78,5 @@ setup(
     ],
     package_data={'bioodo': package_data},
     install_requires=REQUIRES,
-    tests_requires=["pytest"],
+    test_requires=["pytest"],
 )

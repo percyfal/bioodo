@@ -40,6 +40,24 @@ def resource_genome_results(uri, key="Globals", **kwargs):
     return d[key]
 
 
+@resource.register('.*coverage_across_reference.txt', priority=20)
+@resource.register('.*coverage_histogram.txt', priority=20)
+@resource.register('.*duplication_rate_histogram.txt', priority=20)
+@resource.register('.*genome_fraction_coverage.txt', priority=20)
+@resource.register('.*homopolymer_indels.txt', priority=20)
+@resource.register('.*insert_size_across_reference.txt', priority=20)
+@resource.register('.*insert_size_histogram.txt', priority=20)
+@resource.register('.*mapped_reads_clipping_profile.txt', priority=20)
+@resource.register('.*mapped_reads_gc-content_distribution.txt', priority=20)
+@resource.register('.*mapped_reads_nucleotide_content.txt', priority=20)
+@resource.register('.*mapping_quality_across_reference.txt', priority=20)
+@resource.register('.*mapping_quality_histogram.txt', priority=20)
+@annotate_by_uri
+def resource_read_data_frame(uri, **kwargs):
+    d = pd.read_table(uri)
+    return d
+
+
 def aggregate(infiles, outfile, key="Globals", regex=None,  **kwargs):
     import odo
     dflist = []

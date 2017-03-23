@@ -25,6 +25,14 @@ def pytest_namespace():
         'applications' : applications,
     }
 
+
+def pytest_addoption(parser):
+    group = parser.getgroup("bioodo", "bioodo test options")
+    group.addoption("-M", "--bioodo-module", action="store",
+                     default=False,
+                     help="module to test",
+                     dest="module")
+
 ##################################################
 # Setup test fixtures
 ##################################################

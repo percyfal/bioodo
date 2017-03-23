@@ -3,6 +3,7 @@ import os
 import pytest
 from bioodo import qualimap, DataFrame, odo
 
+qm = config.application_fixtures("qualimap")
 
 @pytest.fixture(scope="module")
 def qualimap_data(tmpdir_factory):
