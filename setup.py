@@ -35,16 +35,14 @@ def package_path(path, filters=()):
 scripts = []                    
 
 REQUIRES = [
+    'blaze',
     'pandas',
     'odo',
 ]
                     
-# Integrating pytest with setuptools: see
-# http://pytest.org/latest/goodpractices.html#integrating-with-setuptools-python-setup-py-test-pytest-runner
-
 _version = versioneer.get_version()
 _cmdclass = versioneer.get_cmdclass()
-_cmdclass.update({'test': PyTest})
+
 setup(
     name="bioodo",
     version=_version,
