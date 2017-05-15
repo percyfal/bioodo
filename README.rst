@@ -2,19 +2,20 @@
 bioodo - odo parsers for bioinformatics
 =================================================
 
-.. image:: https://img.shields.io/travis/percyfal/bioodo.svg?branch=master
-        :target: https://travis-ci.org/percyfal/bioodo
+.. image:: https://img.shields.io/pypi/v/bioodo.svg
+	   :target: https://pypi.python.org/pypi/bioodo
+
+.. image:: https://img.shields.io/travis/percyfal/bioodo.svg
+           :target: https://travis-ci.org/percyfal/bioodo
 
 .. image:: https://anaconda.org/percyfal/bioodo/badges/version.svg
 	   :target: https://anaconda.org/percyfal/bioodo
 
-.. image:: https://img.shields.io/badge/License-GPL%20v3-blue.svg
-	   :target: http://www.gnu.org/licenses/gpl-3.0
+.. image:: https://pyup.io/repos/github/percyfal/bioodo/shield.svg
+	   :target: https://pyup.io/repos/github/percyfal/bioodo/
+	   :alt: Updates
 
-.. image:: https://img.shields.io/coveralls/bioodo/bioodo.svg
-	   :target: https://coveralls.io/github/percyfal/bioodo
-
-
+		 
 * Free software: GPL v3
 * Documentation: https://percyfal.github.io/bioodo
 
@@ -36,9 +37,8 @@ Install using the `conda package manager <http://conda.pydata.org/docs/>`_:
 
    $ conda install -c percyfal bioodo
 
-Alternatively, install directly from github with pip using the
-following command:
+Alternatively, install directly from PyPi:
 
 .. code-block:: console
 
-   $ pip3 install -e git+https://github.com/percyfal/bioodo.git@master#egg=bioodo --user
+   $ pip3 install bioodo
