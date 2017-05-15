@@ -38,6 +38,7 @@ REQUIRES = [
     'blaze',
     'pandas',
     'odo',
+    'blaze',
 ]
                     
 _version = versioneer.get_version()
@@ -59,5 +60,5 @@ setup(
     ],
     package_data={'bioodo': package_data},
     install_requires=REQUIRES,
-    tests_requires=["pytest"],
+    test_requires=["pytest"],
 )
