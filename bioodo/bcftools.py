@@ -17,9 +17,20 @@ COLUMNS = {
     'ST' : ['id', 'type', 'count'],
     'DP' : ['id', 'bin', 'number_of_genotypes', 'fraction_of_genotypes', 'number_of_sites', 'fraction_of_sites'],
 }
+INDEX_COLUMN = {
+    'ID': None,
+    'SN': 1,
+    'TSTV': None,
+    'SiS': None,
+    'AF': None,
+    'QUAL': 1,
+    'IDD': 1,
+    'ST': 1,
+    'DP': 1,
+    }
 
-
-@resource.register('.*vcf.gz.stats', priority=30)
+@resource.register('.*.stats', priority=30)
+@resource.register('.*.vcf.gz.stats', priority=40)
 @annotate_by_uri
 def resource_bcftools_stats(uri, key="SN", **kwargs):
     """Parse bcftools stats text output file.
@@ -37,8 +48,10 @@ def resource_bcftools_stats(uri, key="SN", **kwargs):
         data = [[y for y in x.replace(":", "").strip().split("\t")[1:] if not y.startswith("#")] for x in fh.readlines() if x.startswith(key)]
     df = DataFrame.from_records(data, columns = COLUMNS[key])
     df = df.apply(pd.to_numeric, errors='ignore')
-    df = df.set_index(df[COLUMNS[key][0]])
-    del df[COLUMNS[key][0]]
+    i = INDEX_COLUMN[key]
+    if not i is None:
+        df = df.set_index(df[COLUMNS[key][i]])
+        del df[COLUMNS[key][i]]
     return df
 
 

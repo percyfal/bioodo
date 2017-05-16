@@ -2,27 +2,45 @@
 import os
 import pytest
 from bioodo import bcftools, odo, DataFrame
+from pytest_ngsfixtures.config import application_fixtures
+import utils
 
+fixtures = application_fixtures(application="bcftools")
 
-@pytest.fixture(scope="module")
-def bcftools_stats(tmpdir_factory):
-    """Setup bcftools stats"""
-    fn = tmpdir_factory.mktemp('bcftools').join("s1.bcftools_stats.txt")
-    fn.mksymlinkto(os.path.join(pytest.datadir, "bcftools", "s1.bcftools_stats.txt"))
-    return fn
+stat_fixtures = [x for x in fixtures if x[1] == "bcftools_stats"]
+bcftools_stats = utils.fixture_factory(stat_fixtures)
 
 
 def test_basic_statistics(bcftools_stats):
-    df = odo(str(bcftools_stats), DataFrame)
-    assert (list(df.index)[0] == 'raw total sequences')
-    assert(df.loc["sequences", "value"] == 50)
+    module, command, version, end, pdir = bcftools_stats
+    fn = str(pdir.join("medium.call.stats"))
+    df = odo(fn, DataFrame)
+    assert (list(df.index)[0] == 'number of samples')
+    n = 10667 if end == "pe" else 7400
+    assert(df.loc["number of records", "value"] == n)
 
 
-def test_GCC(bcftools_stats):
-    df = odo(str(bcftools_stats), DataFrame, key="GCC")
-    assert (df.loc[1]["A"] == 36.0)
+def test_TSTV(bcftools_stats):
+    module, command, version, end, pdir = bcftools_stats
+    fn = str(pdir.join("medium.call.stats"))
+    df = odo(fn, DataFrame, key="TSTV")
+    tstv = 2.12 if end == "pe" else 2.19
+    assert (df.loc[0]["ts/tv"] == tstv)
 
 
-def test_FFQ(bcftools_stats):
-    df = odo(str(bcftools_stats), DataFrame, key="FFQ")
-    assert (df.loc[1][32] == 17)
+def test_IDD(bcftools_stats):
+    module, command, version, end, pdir = bcftools_stats
+    fn = str(pdir.join("medium.call.stats"))
+    df = odo(fn, DataFrame, key="IDD")
+    count = 123 if end == "pe" else 95
+    assert (df.loc[-1]["count"] == count)
+
+
+def test_QUAL(bcftools_stats):
+    module, command, version, end, pdir = bcftools_stats
+    fn = str(pdir.join("medium.call.stats"))
+    df = odo(fn, DataFrame, key="QUAL")
+    assert "number_of_transitions_(1st_ALT)" in list(df.columns)
+    nsnps = 83 if end == "pe" else 90
+    assert (df.loc[3]["number_of_SNPs"] == nsnps)
+    
