@@ -12,7 +12,7 @@ COLUMNS = {
     'LFQ' : None,
     'GCF' : ['percent', 'count'],
     'GCL' : ['percent', 'count'],
-    'GCC' : ['cycle', 'A', 'C', 'G', 'T'],
+    'GCC' : ['cycle', 'A', 'C', 'G', 'T', 'ACGT_PCT', 'NO_PCT'],
     'IS' : ['insert_size', 'pairs_total', 'inward_oriented_pairs', 'outward_oriented_pairs', 'other_pairs'],
     'RL' : ['length', 'count'],
     'ID' : ['length', 'insertions', 'deletions'],
@@ -20,7 +20,6 @@ COLUMNS = {
     'COV' : ['bin', 'coverage', 'count'],
     'GCD' : ['percent', 'unique', 'p10', 'p25', 'p50', 'p75', 'p90'],
 }
-
 
 @resource.register('.*samtools_stats.txt', priority=30)
 @annotate_by_uri
@@ -44,7 +43,8 @@ def resource_samtools_stats(uri, key="SN", **kwargs):
         df.columns = ['cycle'] + [str(x) for x in range(len(df.columns) - 1)]
         df = df.set_index('cycle')
     else:
-        df = DataFrame.from_records(data, columns = COLUMNS[key])
+        n = len(data[0])
+        df = DataFrame.from_records(data, columns = COLUMNS[key][0:n])
         df = df.apply(pd.to_numeric, errors='ignore')
         df = df.set_index(df[COLUMNS[key][0]])
         del df[COLUMNS[key][0]]
