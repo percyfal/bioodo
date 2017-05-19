@@ -10,13 +10,6 @@ fixtures = application_fixtures(application="samtools")
 stat_fixtures = [x for x in fixtures if x[1] == "samtools_stats"]
 samtools_stats = utils.fixture_factory(stat_fixtures)
 
-# @pytest.fixture(scope="module")
-# def samtools_stats(tmpdir_factory):
-#     """Setup samtools stats"""
-#     fn = tmpdir_factory.mktemp('samtools').join("s1.samtools_stats.txt")
-#     fn.mksymlinkto(os.path.join(pytest.datadir, "samtools", "s1.samtools_stats.txt"))
-#     return fn
-
 
 def test_basic_statistics(samtools_stats):
     module, command, version, end, pdir = samtools_stats
