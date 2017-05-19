@@ -16,9 +16,13 @@ def test_basic_statistics(fastqc_data):
     df = odo(fn, DataFrame)
     major, minor, patch = version.split(".")
     if int(minor) >= 11:
-        assert(list(df.index) == ['Filename', 'File type', 'Encoding', 'Total Sequences', 'Sequences flagged as poor quality', 'Sequence length', '%GC'])
+        assert(list(df.index) == ['Filename', 'File type', 'Encoding',
+                                  'Total Sequences', 'Sequences flagged as poor quality',
+                                  'Sequence length', '%GC'])
     else:
-        assert(list(df.index) == ['Filename', 'File type', 'Encoding', 'Total Sequences', 'Filtered Sequences', 'Sequence length', '%GC'])
+        assert(list(df.index) == ['Filename', 'File type', 'Encoding',
+                                  'Total Sequences', 'Filtered Sequences', 'Sequence length',
+                                  '%GC'])
     assert(df.loc["Filename", "Value"] == "medium.bam")
 
 
