@@ -1,11 +1,13 @@
 # Copyright (C) 2015 by Per Unneberg
 import re
 import string
+import logging
 import math
 from datetime import datetime
 import pandas as pd
-from blaze import odo
+from blaze import odo, DataFrame
 
+logger = logging.getLogger(__name__)
 
 # FIXME: utilize pandas builtin functionality for handling these issues
 def recast(x, strpfmt="%b %d %H:%M:%S"):
@@ -53,12 +55,27 @@ def annotate_df(infile, parser, groupnames=["SM"]):
     return df
     
 
-def aggregate_files(infiles, regex=None, **kwargs):
+def aggregate_files(infiles, regex=None, parser=None, **kwargs):
+    """Helper functions to aggregate files
+
+    Params:
+      infiles (list): list of input file names
+      regex (str): regex pattern to parse file
+      parser (func): bioodo parser function to use in case the generic
+                     parsing fails
+      kwargs (dict): keyword arguments
+
+    Returns:
+      Aggregated data frame
+    """
     import odo
     dflist = []
     for f in infiles:
         logger.debug("loading {}".format(f))
-        df = odo.odo(f, DataFrame)
+        if parser:
+            df = odo.odo(parser(f), DataFrame)
+        else:
+            df = odo.odo(f, DataFrame)
         if regex:
             m = re.search(regex, f)
             if m:
