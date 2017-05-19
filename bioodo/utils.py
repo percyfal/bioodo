@@ -52,3 +52,20 @@ def annotate_df(infile, parser, groupnames=["SM"]):
         df[name] = str(m[name])
     return df
     
+
+def aggregate_files(infiles, regex=None, **kwargs):
+    import odo
+    dflist = []
+    for f in infiles:
+        logger.debug("loading {}".format(f))
+        df = odo.odo(f, DataFrame)
+        if regex:
+            m = re.search(regex, f)
+            if m:
+                logger.debug("adding columns {}".format(",".join(["{}={}".format(k, v) for k,v in m.groupdict().items()])))
+                for k, v in m.groupdict().items():
+                    df[k] = v
+        dflist.append(df)
+    df = pd.concat(dflist)
+    return df
+
