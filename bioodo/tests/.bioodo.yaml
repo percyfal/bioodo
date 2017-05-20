@@ -1,0 +1,3 @@
+bamtools:
+  bamtools:
+    pattern: '.*medium.stats'
