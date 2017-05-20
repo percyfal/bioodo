@@ -1,0 +1,17 @@
+# Default configuration for odo resources
+bwa:
+  bwa_mem:
+    pattern: '.*bwa_mem.log'
+    priority: 30
+bamtools:
+  bamtools:
+    pattern: '.*.bamtools.stats.txt'
+    priority: 30
+bcftools:
+  stats:
+    pattern: '.*.vcf.gz.stats'
+    priority: 30
+cutadapt:
+  metrics:
+    pattern: '.*.cutadapt_metrics.txt'
+    priority: 30
