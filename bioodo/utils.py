@@ -73,9 +73,9 @@ def aggregate_files(infiles, regex=None, parser=None, **kwargs):
     for f in infiles:
         logger.debug("loading {}".format(f))
         if parser:
-            df = odo.odo(parser(f), DataFrame)
+            df = odo.odo(parser(f, **kwargs), DataFrame)
         else:
-            df = odo.odo(f, DataFrame)
+            df = odo.odo(f, DataFrame, **kwargs)
         if regex:
             m = re.search(regex, f)
             if m:
