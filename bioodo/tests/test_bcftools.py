@@ -1,6 +1,5 @@
 # Copyright (C) 2015 by Per Unneberg
-import os
-import pytest
+import logging
 from bioodo import bcftools, odo, DataFrame
 from pytest_ngsfixtures.config import application_fixtures
 import utils
@@ -9,6 +8,8 @@ fixtures = application_fixtures(application="bcftools")
 
 stat_fixtures = [x for x in fixtures if x[1] == "bcftools_stats"]
 bcftools_stats = utils.fixture_factory(stat_fixtures)
+bcftools_aggregate_QUAL_data = utils.aggregation_fixture_factory(
+    [x for x in stat_fixtures], 2)
 
 
 def test_basic_statistics(bcftools_stats):
@@ -44,3 +45,12 @@ def test_QUAL(bcftools_stats):
     nsnps = 83 if end == "pe" else 90
     assert (df.loc[3]["number_of_SNPs"] == nsnps)
     
+
+def test_bcftools_aggregate_QUAL(bcftools_aggregate_QUAL_data, caplog):
+    caplog.setLevel(logging.DEBUG)
+    module, command, version, end, pdir = bcftools_aggregate_QUAL_data
+    df = bcftools.aggregate([str(x) for x in pdir.listdir() if not x.basename.startswith("medium")],
+                            regex=".*(?P<repeat>[0-9]+)_medium.call.stats",
+                            key="QUAL")
+    assert df.index.name == "Quality"
+    assert sorted(list(df["repeat"].unique())) == ['0', '1']

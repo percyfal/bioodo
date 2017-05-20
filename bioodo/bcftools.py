@@ -1,9 +1,12 @@
 # Copyright (C) 2016 by Per Unneberg
 import logging
 import pandas as pd
-from bioodo import resource, annotate_by_uri, DataFrame
+import bioodo
+from bioodo import resource, annotate_by_uri, DataFrame, utils
 
 logger = logging.getLogger(__name__)
+config = bioodo.__RESOURCE_CONFIG__['bcftools']
+
 
 SECTION_NAMES = ['ID', 'SN', 'TSTV', 'SiS', 'AF', 'QUAL', 'IDD', 'ST', 'DP']
 COLUMNS = {
@@ -29,8 +32,9 @@ INDEX_COLUMN = {
     'DP': 1,
     }
 
-@resource.register('.*.stats', priority=30)
-@resource.register('.*.vcf.gz.stats', priority=40)
+
+@resource.register(config['stats']['pattern'],
+                   priority=config['stats']['priority'])
 @annotate_by_uri
 def resource_bcftools_stats(uri, key="SN", **kwargs):
     """Parse bcftools stats text output file.
@@ -56,5 +60,20 @@ def resource_bcftools_stats(uri, key="SN", **kwargs):
 
 
 # Aggregation function
-def aggregate_bcftools(infiles, key="SN", **kwargs):
-    pass
+def aggregate(infiles, outfile=None, regex=None, **kwargs):
+    """Aggregate individual bcftools reports to one output file
+
+    Params:
+      infiles (list): list of input files
+      outfile (str): csv output file name
+      regex (str): regular expression pattern to parse input file names
+      kwargs (dict): keyword arguments
+
+    """
+    logger.debug("Aggregating bcftools infiles {} in bcftools aggregate".format(",".join(infiles)))
+    df = utils.aggregate_files(infiles, regex=regex, **kwargs)
+    if outfile:
+        df.to_csv(outfile)
+    else:
+        return df
+
