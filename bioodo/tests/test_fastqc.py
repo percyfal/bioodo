@@ -56,8 +56,7 @@ def test_per_base_sequence_quality(fastqc_data):
 
 def test_fastqc_aggregate(fastqc_aggregate_data):
     module, command, version, end, pdir = fastqc_aggregate_data
-    
-    df = fastqc.aggregate([str(x.listdir()[0]) for x in pdir.listdir() if x.isdir],
+    df = fastqc.aggregate([str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
                             regex=".*/(?P<repeat>[0-9]+)/medium_fastqc.zip")
     assert sorted(list(df["repeat"].unique())) == ['0', '1']
 

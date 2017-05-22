@@ -24,9 +24,9 @@ def test_bamtools(bamtools_data, caplog):
 def test_bamtools_aggregate(bamtools_aggregate_data, caplog):
     caplog.setLevel(logging.DEBUG)
     module, command, version, end, pdir = bamtools_aggregate_data
-    df = bamtools.aggregate([str(x) for x in pdir.listdir() if not x.basename.startswith("medium")],
-                            regex=".*(?P<repeat>[0-9]+)_medium.stats")
-    assert list(df["repeat"].unique()) == ['0', '1']
+    df = bamtools.aggregate([str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
+                            regex=".*/(?P<repeat>[0-9]+)/medium.stats")
+    assert sorted(list(df["repeat"].unique())) == ['0', '1']
 
 
 

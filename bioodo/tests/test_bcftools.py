@@ -49,8 +49,8 @@ def test_QUAL(bcftools_stats):
 def test_bcftools_aggregate_QUAL(bcftools_aggregate_QUAL_data, caplog):
     caplog.setLevel(logging.DEBUG)
     module, command, version, end, pdir = bcftools_aggregate_QUAL_data
-    df = bcftools.aggregate([str(x) for x in pdir.listdir() if not x.basename.startswith("medium")],
-                            regex=".*(?P<repeat>[0-9]+)_medium.call.stats",
+    df = bcftools.aggregate([str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
+                            regex=".*/(?P<repeat>[0-9]+)/medium.call.stats",
                             key="QUAL")
     assert df.index.name == "Quality"
     assert sorted(list(df["repeat"].unique())) == ['0', '1']
