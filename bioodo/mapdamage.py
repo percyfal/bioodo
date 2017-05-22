@@ -1,7 +1,7 @@
 # Copyright (C) 2016 by Per Unneberg
 import logging
 import pandas as pd
-from bioodo import resource, annotate_by_uri, DataFrame
+from bioodo import resource, annotate_by_uri, DataFrame, utils
 
 logger = logging.getLogger(__name__)
 
@@ -154,3 +154,24 @@ def resource_mapdamage_misincorporation(uri, **kwargs):
     """
     df = pd.read_table(uri, sep="\t", comment="#")
     return df
+
+
+
+# Aggregation function
+def aggregate(infiles, outfile=None, regex=None, **kwargs):
+    """Aggregate individual mapdamage reports to one output file
+
+    Params:
+      infiles (list): list of input files
+      outfile (str): csv output file name
+      regex (str): regular expression pattern to parse input file names
+      kwargs (dict): keyword arguments
+
+    """
+    logger.debug("Aggregating mapdamage infiles {} in mapdamage aggregate".format(",".join(infiles)))
+    df = utils.aggregate_files(infiles, regex=regex, **kwargs)
+    if outfile:
+        df.to_csv(outfile)
+    else:
+        return df
+
