@@ -2,10 +2,14 @@
 import re
 import os
 import logging
-from bioodo import resource, annotate_by_uri, DataFrame
 import pandas as pd
+import bioodo
+from bioodo import resource, annotate_by_uri, DataFrame, utils
+
 
 logger = logging.getLogger(__name__)
+config = bioodo.__RESOURCE_CONFIG__['fastqc']
+
 
 # Possible section names
 SECTION_NAMES=['Header', 'Basic_Statistics',
@@ -16,7 +20,8 @@ SECTION_NAMES=['Header', 'Basic_Statistics',
                'Overrepresented_sequences', 'Adapter_Content', 'Kmer_Content']
 
 
-@resource.register('.*fastqc(_data.txt|.zip)', priority=30)
+@resource.register(config['fastqc']['pattern'],
+                   priority=config['fastqc']['priority'])
 @annotate_by_uri
 def resource_fastqc_data(uri, key="Basic_Statistics", **kwargs):
     """Parse fastqc text output file.
@@ -28,14 +33,17 @@ def resource_fastqc_data(uri, key="Basic_Statistics", **kwargs):
     Returns:
       DataFrame: DataFrame for requested section
     """
+    logger.debug("Reading {}".format(uri))
     if key not in SECTION_NAMES + ['Summary']:
         raise KeyError("Not in allowed section names; allowed values are {}".format(", ".join(SECTION_NAMES + ["Summary"])))
     if uri.endswith(".zip"):
+        logger.debug("Reading zipped fastqc file")
         from zipfile import ZipFile
         with ZipFile(uri) as zf:
             with zf.open(os.path.join(os.path.basename(uri.strip(".zip")), kwargs.get('fastqc_data', 'fastqc_data.txt'))) as fh:
                 data = re.sub(">>END_MODULE", "", fh.read().decode("utf-8"))
     else:
+        logger.debug("Reading fastqc_data.txt file")
         with open(uri) as fh:
             data = re.sub(">>END_MODULE", "", "".join(fh))
     sections = [x for x in re.split(">>+[a-zA-Z _\t\n]+", data)]
@@ -48,7 +56,7 @@ def resource_fastqc_data(uri, key="Basic_Statistics", **kwargs):
     for h, sec in zip(headings, sections):
         if not h == key:
             continue
-        logger.debug("Parsing section ", h)
+        logger.debug("Parsing section {}".format(h))
         if h == "Header":
             d = DataFrame.from_records([[re.sub("#", "", x) for x in re.split("\t", sec.strip())]])
         else:
@@ -60,18 +68,20 @@ def resource_fastqc_data(uri, key="Basic_Statistics", **kwargs):
 
 
 
-def aggregate(infiles, outfile, key="Kmer_content", regex=None, **kwargs):
-    import odo
-    dflist = []
-    for f in infiles:
-        logger.info("loading {}".format(f))
-        df = odo.odo(f, DataFrame, key=key)
-        if regex:
-            m = re.search(regex, f)
-            if m:
-                logger.info("adding columns {}".format(",".join(["{}={}".format(k, v) for k,v in m.groupdict().items()])))
-                for k, v in m.groupdict().items():
-                    df[k] = v
-        dflist.append(df)
-    df = pd.concat(dflist)
-    df.to_csv(outfile)
+# Aggregation function
+def aggregate(infiles, outfile=None, regex=None, **kwargs):
+    """Aggregate individual fastqc reports to one output file
+
+    Params:
+      infiles (list): list of input files
+      outfile (str): csv output file name
+      regex (str): regular expression pattern to parse input file names
+      kwargs (dict): keyword arguments
+
+    """
+    logger.debug("Aggregating fastqc infiles {} in fastqc aggregate".format(",".join(infiles)))
+    df = utils.aggregate_files(infiles, regex=regex, **kwargs)
+    if outfile:
+        df.to_csv(outfile)
+    else:
+        return df
