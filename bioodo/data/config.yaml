@@ -15,3 +15,21 @@ cutadapt:
   metrics:
     pattern: '.*.cutadapt_metrics.txt'
     priority: 30
+fastqc:
+  fastqc:
+    pattern: '.*fastqc(_data.txt|.zip)'
+    priority: 30
+picard:
+  align_metrics:
+    pattern: '.*.align_metrics'
+    priority: 30
+  insert_metrics:
+    pattern: '.*.insert_size_metrics'
+    priority: 30
+  hs_metrics:
+    pattern: '.*.hs_metrics'
+    priority: 30
+  dup_metrics:
+    pattern: '.*.dup_metrics.log'
+    priority: 30
+    
