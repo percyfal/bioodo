@@ -1,6 +1,6 @@
 # Copyright (C) 2016 by Per Unneberg
 import re
-import os
+from os.path import join, basename
 import logging
 import pandas as pd
 import bioodo
@@ -29,18 +29,20 @@ def resource_fastqc_data(uri, key="Basic_Statistics", **kwargs):
     Args:
       uri (str): filename
       key (str): result section to return
-      
+
     Returns:
       DataFrame: DataFrame for requested section
     """
     logger.debug("Reading {}".format(uri))
     if key not in SECTION_NAMES + ['Summary']:
-        raise KeyError("Not in allowed section names; allowed values are {}".format(", ".join(SECTION_NAMES + ["Summary"])))
+        raise KeyError(
+            "Not in allowed section names; allowed values are {}".format(
+                ", ".join(SECTION_NAMES + ["Summary"])))
     if uri.endswith(".zip"):
         logger.debug("Reading zipped fastqc file")
         from zipfile import ZipFile
         with ZipFile(uri) as zf:
-            with zf.open(os.path.join(os.path.basename(uri.strip(".zip")), kwargs.get('fastqc_data', 'fastqc_data.txt'))) as fh:
+            with zf.open(join(basename(uri.strip(".zip")), kwargs.get('fastqc_data', 'fastqc_data.txt'))) as fh:
                 data = re.sub(">>END_MODULE", "", fh.read().decode("utf-8"))
     else:
         logger.debug("Reading fastqc_data.txt file")
@@ -63,9 +65,8 @@ def resource_fastqc_data(uri, key="Basic_Statistics", **kwargs):
             i = 1 if h.startswith("Sequence_Duplication") else 0
             columns = [re.sub("#", "", x) for x in re.split("\t", sec.split("\n")[i].strip())]
             d = DataFrame.from_records([re.split("\t", x.strip()) for x in sec.split("\n") if x and not x.startswith("#")],
-                                          columns = columns, index=columns[0])
+                                       columns=columns, index=columns[0])
     return d
-
 
 
 # Aggregation function
