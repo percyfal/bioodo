@@ -1,10 +1,31 @@
 import os
-import re
 import pytest
 from pytest_ngsfixtures import factories
+import logging
 
 
-def fixture_factory(fixture_list, **kwargs):
+logger = logging.getLogger(__name__)
+
+
+def fixture_factory(fixture_list, unique=False, **kwargs):
+    """Fixture factory to generate fixtures from
+    a list of pytest-ngsfixtures fixtures
+
+    Params:
+      fixture_list(list): list of tuples, where each tuple consists of
+                          module, command, version, end and file name format
+      unique(boolean): make unique fixture directories; useful if one
+                       wants to separate multiple outputs into
+                       separate directories
+      kwargs(dict): keyword arguments
+    """
+    logger.info(fixture_list)
+    if unique:
+        for i in range(len(fixture_list)):
+            y = list(fixture_list[i])
+            y[1] = "{}_{}".format(y[1], i)
+            fixture_list[i] = tuple(y)
+
     @pytest.fixture(scope="session", autouse=False, params=fixture_list,
                     ids=["{} {}:{}/{}".format(x[0], x[1], x[2], x[3]) for x in fixture_list])
     def bioodo_fixture(request, tmpdir_factory):
@@ -27,7 +48,7 @@ def fixture_factory(fixture_list, **kwargs):
         # safe_symlink function automagically uses pytest_ngsfixtures
         # installation directory to infer location of src
         for src, dst in zip(sources, dests):
-            p = factories.safe_symlink(pdir, src, dst)
+            factories.safe_symlink(pdir, src, dst)
         return module, command, version, end, pdir
     return bioodo_fixture
 
@@ -58,24 +79,8 @@ def aggregation_fixture_factory(fixture_list, repeat, **kwargs):
         # multiple output files
         module, command, version, end, fmtdict = request.param
         params = {'version': version, 'end': end}
-        # Generate pytest_ngsfixtures application output names relative to
-        # applications/module directory
-        # fmtdict_repeat = dict()
-        # try:
-        #     for k, v in fmtdict.items():
-        #         fmtdict_repeat[k] = v.replace("{end}/", "{end}/{repeat}/")
-        # except:
-        #     raise
-        # outputs = []
-        # for i in range(repeat):
-        #     params = {'version': version, 'end': end, "repeat": i}
-        #     outputs += [fmt.format(**params) for fmt in fmtdict_repeat.values()]
-
-        # outputs = []
-        keys = kwargs.get("keys", fmtdict.values())
+        keys = kwargs.get("keys", fmtdict.keys())
         outputs = [fmtdict[k].format(**params) for k in keys] * len(range(repeat))
-        # for i in range(repeat):
-        #     outputs = 
         # Add applications/module prefix
         sources = [os.path.join("applications", module, output) for output in outputs]
         # Extract source basenames
@@ -90,7 +95,7 @@ def aggregation_fixture_factory(fixture_list, repeat, **kwargs):
         count = 0
         for src, dst in zip(sources, dests):
             rdir = pdir.mkdir(str(count))
-            p = factories.safe_symlink(rdir, src, dst)
+            factories.safe_symlink(rdir, src, dst)
             count += 1
         return module, command, version, end, pdir
     return bioodo_aggregation_fixture
