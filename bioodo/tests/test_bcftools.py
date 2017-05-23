@@ -1,5 +1,4 @@
 # Copyright (C) 2015 by Per Unneberg
-import logging
 from bioodo import bcftools, odo, DataFrame
 from pytest_ngsfixtures.config import application_fixtures
 import utils
@@ -44,10 +43,9 @@ def test_QUAL(bcftools_stats):
     assert "number_of_transitions_(1st_ALT)" in list(df.columns)
     nsnps = 83 if end == "pe" else 90
     assert (df.loc[3]["number_of_SNPs"] == nsnps)
-    
 
-def test_bcftools_aggregate_QUAL(bcftools_aggregate_QUAL_data, caplog):
-    caplog.setLevel(logging.DEBUG)
+
+def test_bcftools_aggregate_QUAL(bcftools_aggregate_QUAL_data):
     module, command, version, end, pdir = bcftools_aggregate_QUAL_data
     df = bcftools.aggregate([str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
                             regex=".*/(?P<repeat>[0-9]+)/medium.call.stats",
