@@ -1,4 +1,5 @@
 # Copyright (C) 2015 by Per Unneberg
+from bioodo import xls
 from blaze import DataFrame, odo
 import pytest
 
