@@ -52,3 +52,7 @@ rseqc:
   data_frame:
     pattern: '.*geneBody_coverage.geneBodyCoverage.txt'
     priority: 30
+star:
+  log_final:
+    pattern: '.*Log.final.out'
+    priority: 30
