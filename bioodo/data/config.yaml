@@ -4,7 +4,7 @@ bwa:
     pattern: '.*bwa_mem.log'
     priority: 30
 bamtools:
-  bamtools:
+  stats:
     pattern: '.*.bamtools.stats.txt'
     priority: 30
 bcftools:
@@ -51,6 +51,13 @@ rseqc:
     priority: 30
   data_frame:
     pattern: '.*geneBody_coverage.geneBodyCoverage.txt'
+    priority: 30
+sga:
+  preprocess:
+    pattern: '.*sga.preprocess.log'
+    priority: 30
+  filter:
+    pattern: '.*sga.filter.log'
     priority: 30
 star:
   log_final:
