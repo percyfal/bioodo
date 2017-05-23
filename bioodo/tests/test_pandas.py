@@ -38,8 +38,7 @@ def test_custom_annotate_df(dataframe1, dataframe2):
         uristr = os.path.basename(uri)
         df['sample'] = uristr.split(".")[0]
         return df
-    
+
     df1 = odo(str(dataframe1), DataFrame, annotate=True, annotation_fn=_annotate_fn)
     df2 = df1.append(odo(str(dataframe2), DataFrame, annotate=True, annotation_fn=_annotate_fn))
     assert set(df2['sample']) == {'sample1', 'sample2'}
-    

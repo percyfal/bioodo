@@ -6,6 +6,7 @@ include README.rst
 
 include versioneer.py
 include bioodo/_version.py
+include bioodo/bioodo/data/config.yaml
 
 recursive-include tests *
 recursive-exclude * __pycache__

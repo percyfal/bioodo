@@ -14,11 +14,8 @@ requirements:
   build:
     - python
     - setuptools
-    - pytest
-    - pytest-runner
   run:
     - python
-    - pytest
     - pyyaml
     - odo
     - blaze
@@ -28,6 +25,8 @@ test:
     # tests
     - pytest
     - pytest-runner
+    - pytest-ngsfixtures
+    - pytest-capturelog
 
   imports:
     - bioodo

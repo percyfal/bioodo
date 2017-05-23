@@ -1,32 +1,38 @@
 # Copyright (C) 2015 by Per Unneberg
-import os
-import pytest
 from bioodo import picard, odo, DataFrame
+from pytest_ngsfixtures.config import application_fixtures
+import utils
 
-
-@pytest.fixture(scope="module")
-def insert_metrics(tmpdir_factory):
-    fn = tmpdir_factory.mktemp('picard').join('test.insert_metrics')
-    fn.mksymlinkto(os.path.join(pytest.datadir, "picard", "s1.sort.insert_metrics"))
-    return fn
-
-
-@pytest.fixture(scope="module")
-def align_metrics(tmpdir_factory):
-    fn = tmpdir_factory.mktemp('picard').join('test.align_metrics')
-    fn.mksymlinkto(os.path.join(pytest.datadir, "picard", "s1.sort.align_metrics"))
-    return fn
+fixtures = application_fixtures(application="picard")
+insert_metrics = utils.fixture_factory(
+    [x for x in fixtures if "CollectInsertSizeMetrics" in x[1]])
+align_metrics = utils.fixture_factory(
+    [x for x in fixtures if "CollectAlignmentSummaryMetrics" in x[1]])
+aggregate_data_insert = utils.aggregation_fixture_factory(
+    [x for x in fixtures if "CollectInsertSizeMetrics" in x[1]], 2)
 
 
 def test_hist_metrics(insert_metrics):
-    metrics = odo(str(insert_metrics), DataFrame)
-    hist = odo(str(insert_metrics), DataFrame, key="hist")
-    assert all(metrics["MEDIAN_INSERT_SIZE"] == [155])
-    assert all(hist["insert_size"][0:3] == [91,99,107])
-    
+    module, command, version, end, pdir = insert_metrics
+    fn = pdir.join("medium.insert_size_metrics")
+    metrics = odo(str(fn), DataFrame)
+    hist = odo(str(fn), DataFrame, key="hist")
+    assert all(metrics["MEDIAN_INSERT_SIZE"] == [367])
+    assert all(hist["insert_size"][0:3] == [19, 22, 23])
+
 
 def test_metrics(align_metrics):
-    metrics = odo(str(align_metrics), DataFrame)
-    assert metrics.loc["FIRST_OF_PAIR"]["MEAN_READ_LENGTH"] == 76
+    module, command, version, end, pdir = align_metrics
+    fn = pdir.join("medium.align_metrics")
+    metrics = odo(str(fn), DataFrame)
+    if end == "pe":
+        assert metrics.loc["FIRST_OF_PAIR"]["MEAN_READ_LENGTH"] - 92.29 < 0.01
+    else:
+        assert metrics.loc["UNPAIRED"]["MEAN_READ_LENGTH"] - 92.29975 < 0.001
 
 
+def test_aggregate_insert_data(aggregate_data_insert):
+    module, command, version, end, pdir = aggregate_data_insert
+    df = picard.aggregate([str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
+                          regex=".*/(?P<repeat>[0-9]+)/medium.insert_size_metrics")
+    assert sorted(list(df["repeat"].unique())) == ['0', '1']

@@ -2,22 +2,26 @@
 import re
 import logging
 import pandas as pd
-from bioodo import resource, annotate_by_uri, DataFrame
+from bioodo import resource, annotate_by_uri, DataFrame, utils
+import bioodo
 
+config = bioodo.__RESOURCE_CONFIG__['vsearch']
 logger = logging.getLogger(__name__)
 
-SECTION_NAMES = ["Read length distribution", "Q score distribution", "Truncate at first Q"]
+SECTION_NAMES = ["Read length distribution", "Q score distribution",
+                 "Truncate at first Q"]
 
 
-@resource.register('.*fastq_stats.txt', priority=30)
+@resource.register(config['stats']['pattern'],
+                   priority=config['stats']['priority'])
 @annotate_by_uri
 def resource_vsearch_fastqc_stats(uri, key="Read length distribution", **kwargs):
     """Parse vsearch fastqc_stats text output file.
-    
-    Args: 
+
+    Args:
       uri (str): filename
       key (str): result section to return
-      
+
     Returns:
       DataFrame: DataFrame for requested section
     """
@@ -42,9 +46,28 @@ def resource_vsearch_fastqc_stats(uri, key="Read length distribution", **kwargs)
             d = [re.split("\s+", re.sub("[><=]+", "", x).strip()) for x in re.split("\n", m.group("data").strip())]
         else:
             d = [re.split("\s+", x.strip()) for x in re.split("\n", m.group("data").strip())]
-        df = DataFrame.from_records(d, columns = header)
+        df = DataFrame.from_records(d, columns=header)
         df = df.apply(pd.to_numeric, errors='ignore')
         df = df.set_index(indexcol)
     except:
         raise
     return df
+
+
+# Aggregation function
+def aggregate(infiles, outfile=None, regex=None, **kwargs):
+    """Aggregate individual vsearch reports to one output file
+
+    Params:
+      infiles (list): list of input files
+      outfile (str): csv output file name
+      regex (str): regular expression pattern to parse input file names
+      kwargs (dict): keyword arguments
+
+    """
+    logger.debug("Aggregating vsearch infiles {} in vsearch aggregate".format(",".join(infiles)))
+    df = utils.aggregate_files(infiles, regex=regex, **kwargs)
+    if outfile:
+        df.to_csv(outfile)
+    else:
+        return df

@@ -1,28 +1,37 @@
 # Copyright (C) 2015 by Per Unneberg
-import os
-import pytest
 from bioodo import samtools, odo, DataFrame
+from pytest_ngsfixtures.config import application_fixtures
+import utils
 
+fixtures = application_fixtures(application="samtools")
 
-@pytest.fixture(scope="module")
-def samtools_stats(tmpdir_factory):
-    """Setup samtools stats"""
-    fn = tmpdir_factory.mktemp('samtools').join("s1.samtools_stats.txt")
-    fn.mksymlinkto(os.path.join(pytest.datadir, "samtools", "s1.samtools_stats.txt"))
-    return fn
+stat_fixtures = [x for x in fixtures if x[1] == "samtools_stats"]
+samtools_stats = utils.fixture_factory(stat_fixtures)
 
 
 def test_basic_statistics(samtools_stats):
-    df = odo(str(samtools_stats), DataFrame)
+    _stats = {'1.2': {'se': 60037, 'pe': 120110},
+              '1.3.1': {'se': 60000, 'pe': 120000}}
+    module, command, version, end, pdir = samtools_stats
+    fn = str(pdir.join("medium.stats.txt"))
+    df = odo(samtools.resource_samtools_stats(fn), DataFrame)
     assert (list(df.index)[0] == 'raw total sequences')
-    assert(df.loc["sequences", "value"] == 50)
+    assert(df.loc["sequences", "value"] == _stats[version][end])
 
 
 def test_GCC(samtools_stats):
-    df = odo(str(samtools_stats), DataFrame, key="GCC")
-    assert (df.loc[1]["A"] == 36.0)
+    _gcc_stats = {'1.2': {'se': 30.12, 'pe': 30.21},
+                  '1.3.1': {'se': 30.19, 'pe': 30.27}}
+    module, command, version, end, pdir = samtools_stats
+    fn = str(pdir.join("medium.stats.txt"))
+    df = odo(samtools.resource_samtools_stats(fn, key="GCC"), DataFrame)
+    assert (df.loc[1]["A"] == _gcc_stats[version][end])
 
 
 def test_FFQ(samtools_stats):
-    df = odo(str(samtools_stats), DataFrame, key="FFQ")
-    assert (df.loc[1][32] == 17)
+    _ffq_stats = {'1.2': {'se': 27624, 'pe': 27630},
+                  '1.3.1': {'se': 27598, 'pe': 27598}}
+    module, command, version, end, pdir = samtools_stats
+    fn = str(pdir.join("medium.stats.txt"))
+    df = odo(samtools.resource_samtools_stats(fn, key="FFQ"), DataFrame)
+    assert (df.loc[1][33] == _ffq_stats[version][end])

@@ -1,18 +1,26 @@
 # Copyright (C) 2015 by Per Unneberg
-import os
-import pytest
-from bioodo import star, DataFrame, odo
+from bioodo import star, odo, DataFrame
+from pytest_ngsfixtures.config import application_fixtures
+import utils
 
 
-@pytest.fixture(scope="module")
-def star_data(tmpdir_factory):
-    fn = tmpdir_factory.mktemp('data').join('star.Log.final.out')
-    fn.mksymlinkto(os.path.join(pytest.datadir, "star", "star.Log.final.out"))    
-    return fn
+fixtures = application_fixtures(application="star")
+data = utils.fixture_factory(fixtures)
+aggregate_data = utils.aggregation_fixture_factory(
+    [tuple([x[0], x[1], x[2], x[3], {'final': x[4]['final']}])
+     for x in fixtures], 2)
 
 
-def test_star_log(star_data):
-    df = odo(str(star_data), DataFrame)
-    assert df.loc["% of reads unmapped: too short","value"] == 8.73
-    assert df.loc["Uniquely mapped reads number","value"] == 4011114
+def test_star_final_log(data):
+    module, command, version, end, pdir = data
+    fn = pdir.join("medium.Log.final.out")
+    df = odo(str(fn), DataFrame)
+    assert df.loc["Number of input reads", "value"] == 30483
 
+
+def test_star_aggregate(aggregate_data):
+    module, command, version, end, pdir = aggregate_data
+    df = star.aggregate([str(x.listdir()[0]) for x in pdir.listdir()
+                         if x.isdir()],
+                        regex=".*/(?P<repeat>[0-9]+)/medium.Log.final.out")
+    assert sorted(list(df["repeat"].unique())) == ['0', '1']

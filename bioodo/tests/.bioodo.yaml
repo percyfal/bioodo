@@ -1,0 +1,6 @@
+bamtools:
+  stats:
+    pattern: '.*medium.stats'
+bcftools:
+  stats:
+    pattern: '.*medium.call.stats'

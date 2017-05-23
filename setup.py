@@ -32,6 +32,8 @@ def package_path(path, filters=()):
                 if not filters or f.endswith(filters):
                     package_data.append(join(path, f))
 
+package_path(join(ROOT, 'bioodo', 'data'), 'config.yaml')
+
 scripts = []                    
 
 REQUIRES = [
