@@ -12,7 +12,7 @@ mapdamage_aggregate_data_misincorporation = utils.aggregation_fixture_factory(
 def test_mapdamage_runtime(mapdamage_data):
     module, command, version, end, pdir = mapdamage_data
     fn = pdir.join("Runtime_log.txt")
-    df = odo(str(fn), DataFrame)
+    odo(str(fn), DataFrame)
 
 
 def test_mapdamage_3pGtoA(mapdamage_data):
@@ -27,7 +27,7 @@ def test_mapdamage_5pCtoT(mapdamage_data):
     fn = pdir.join("5pCtoT_freq.txt")
     df = odo(str(fn), DataFrame)
     assert(df.index.name == "pos")
-    
+
 
 def test_mapdamage_mcmc_correct_prob(mapdamage_data):
     module, command, version, end, pdir = mapdamage_data
@@ -56,7 +56,7 @@ def test_mapdamage_dnacomp(mapdamage_data):
     fn = pdir.join("dnacomp.txt")
     df = odo(str(fn), DataFrame)
     assert (df["Chr"][0] == "scaffold1")
-    
+
 
 def test_mapdamage_dnacomp_genome(mapdamage_data):
     module, command, version, end, pdir = mapdamage_data
@@ -77,7 +77,7 @@ def test_mapdamage_misincorporation(mapdamage_data):
     fn = pdir.join("misincorporation.txt")
     df = odo(str(fn), DataFrame)
     assert (df.shape[1] == 30)
-    
+
 
 def test_mapdamage_aggregate_misincorporation(mapdamage_aggregate_data_misincorporation):
     module, command, version, end, pdir = mapdamage_aggregate_data_misincorporation

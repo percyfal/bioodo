@@ -6,18 +6,19 @@ from bioodo import resource, annotate_by_uri, DataFrame, utils
 
 logger = logging.getLogger(__name__)
 
-SECTION_NAMES = ["Read length distribution", "Q score distribution", "Truncate at first Q"]
+SECTION_NAMES = ["Read length distribution", "Q score distribution",
+                 "Truncate at first Q"]
 
 
 @resource.register('.*fastq_stats.txt', priority=30)
 @annotate_by_uri
 def resource_vsearch_fastqc_stats(uri, key="Read length distribution", **kwargs):
     """Parse vsearch fastqc_stats text output file.
-    
-    Args: 
+
+    Args:
       uri (str): filename
       key (str): result section to return
-      
+
     Returns:
       DataFrame: DataFrame for requested section
     """
@@ -42,7 +43,7 @@ def resource_vsearch_fastqc_stats(uri, key="Read length distribution", **kwargs)
             d = [re.split("\s+", re.sub("[><=]+", "", x).strip()) for x in re.split("\n", m.group("data").strip())]
         else:
             d = [re.split("\s+", x.strip()) for x in re.split("\n", m.group("data").strip())]
-        df = DataFrame.from_records(d, columns = header)
+        df = DataFrame.from_records(d, columns=header)
         df = df.apply(pd.to_numeric, errors='ignore')
         df = df.set_index(indexcol)
     except:

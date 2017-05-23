@@ -21,6 +21,6 @@ def test_star_final_log(data):
 def test_star_aggregate(aggregate_data):
     module, command, version, end, pdir = aggregate_data
     df = star.aggregate([str(x.listdir()[0]) for x in pdir.listdir()
-                             if x.isdir()],
+                         if x.isdir()],
                         regex=".*/(?P<repeat>[0-9]+)/medium.Log.final.out")
     assert sorted(list(df["repeat"].unique())) == ['0', '1']

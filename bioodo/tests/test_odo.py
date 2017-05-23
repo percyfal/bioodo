@@ -1,8 +1,7 @@
 # Copyright (C) 2015 by Per Unneberg
 from blaze import DataFrame, odo
-from bioodo import xls
-import io
 import pytest
+
 
 @pytest.fixture(scope="module")
 def xlsdata(tmpdir_factory):
@@ -18,7 +17,7 @@ def xlsdata(tmpdir_factory):
 """)
     return fn
 
+
 def test_xls(xlsdata):
     df = odo(str(xlsdata), DataFrame)
-    assert all(df["Position"] == range(0,7))
-
+    assert all(df["Position"] == range(0, 7))

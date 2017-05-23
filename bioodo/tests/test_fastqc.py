@@ -1,5 +1,4 @@
 # Copyright (C) 2015 by Per Unneberg
-import os
 import pytest
 from bioodo import fastqc, odo, DataFrame
 

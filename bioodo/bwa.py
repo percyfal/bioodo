@@ -17,7 +17,7 @@ def resource_bwa_mem(uri, **kwargs):
 
     Args:
       uri (str): filename
-      
+
     Returns:
       DataFrame: DataFrame for requested section
     """
@@ -26,12 +26,11 @@ def resource_bwa_mem(uri, **kwargs):
         data = "".join(fh)
     sections = re.split("Preprocess stats:\n", data)
     parameters = [["parameter"] + [x.strip() for x in y.strip().split(":")] for y in re.sub("Parameters:\n", "", sections[0]).split("\n") if ":" in y]
-    preprocess = [["preprocess stats"] + [x.strip() for x in y.strip().split(":")] for y in re.sub("\([0-9\.]+\)", "", sections[1]).split("\n") if y and not "wall" in y]
+    preprocess = [["preprocess stats"] + [x.strip() for x in y.strip().split(":")] for y in re.sub("\([0-9\.]+\)", "", sections[1]).split("\n") if y and "wall" not in y]
     df = DataFrame.from_records(parameters + preprocess, columns=["type", "statistic", "value"])
     df = df.set_index('statistic')
     df["value"] = df["value"].apply(pd.to_numeric, errors="ignore")
     return df
-
 
 
 def aggregate(infiles, outfile=None, regex=None, **kwargs):

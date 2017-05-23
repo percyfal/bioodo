@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from bioodo import bwa, odo, DataFrame
 from pytest_ngsfixtures.config import application_fixtures
 import utils
 

@@ -1,7 +1,7 @@
 # Copyright (C) 2016 by Per Unneberg
 import logging
 import pandas as pd
-from bioodo import resource, annotate_by_uri, DataFrame, utils
+from bioodo import resource, annotate_by_uri, utils
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +13,7 @@ def resource_mapdamage_runtime(uri, **kwargs):
 
     Args:
       uri (str): filename
-      
+
     Returns:
       DataFrame: DataFrame representation of runtime log
     """
@@ -28,7 +28,7 @@ def resource_mapdamage_3pGtoA_freq(uri, **kwargs):
 
     Args:
       uri (str): filename
-      
+
     Returns:
       DataFrame: DataFrame representation of 3pGtoA
     """
@@ -43,12 +43,13 @@ def resource_mapdamage_5pCtoT_freq(uri, **kwargs):
 
     Args:
       uri (str): filename
-      
+
     Returns:
       DataFrame: DataFrame representation of 5pCtoT
     """
     df = pd.read_table(uri, index_col=0)
     return df
+
 
 @resource.register('.*Stats_out_MCMC_correct_prob.csv', priority=30)
 @annotate_by_uri
@@ -57,7 +58,7 @@ def resource_mapdamage_mcmc_correct_prob_freq(uri, **kwargs):
 
     Args:
       uri (str): filename
-      
+
     Returns:
       DataFrame: DataFrame representation of mcmc correct prob.
     """
@@ -73,7 +74,7 @@ def resource_mapdamage_mcmc_iter(uri, **kwargs):
 
     Args:
       uri (str): filename
-      
+
     Returns:
       DataFrame: DataFrame representation of mcmc iter.
     """
@@ -88,7 +89,7 @@ def resource_mapdamage_mcmc_iter_summ_stat(uri, **kwargs):
 
     Args:
       uri (str): filename
-      
+
     Returns:
       DataFrame: DataFrame representation of mcmc iter summ stat.
     """
@@ -103,7 +104,7 @@ def resource_mapdamage_dnacomp(uri, **kwargs):
 
     Args:
       uri (str): filename
-      
+
     Returns:
       DataFrame: DataFrame representation of dnacomp
     """
@@ -118,7 +119,7 @@ def resource_mapdamage_dnacomp_genome(uri, **kwargs):
 
     Args:
       uri (str): filename
-      
+
     Returns:
       DataFrame: DataFrame representation of dnacomp_genome
     """
@@ -133,7 +134,7 @@ def resource_mapdamage_lgdistribution(uri, **kwargs):
 
     Args:
       uri (str): filename
-      
+
     Returns:
       DataFrame: DataFrame representation of lgdistribution
     """
@@ -148,13 +149,12 @@ def resource_mapdamage_misincorporation(uri, **kwargs):
 
     Args:
       uri (str): filename
-      
+
     Returns:
       DataFrame: DataFrame representation of misincorporation
     """
     df = pd.read_table(uri, sep="\t", comment="#")
     return df
-
 
 
 # Aggregation function
@@ -174,4 +174,3 @@ def aggregate(infiles, outfile=None, regex=None, **kwargs):
         df.to_csv(outfile)
     else:
         return df
-

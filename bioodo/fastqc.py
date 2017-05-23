@@ -2,7 +2,6 @@
 import re
 from os.path import join, basename
 import logging
-import pandas as pd
 import bioodo
 from bioodo import resource, annotate_by_uri, DataFrame, utils
 
@@ -12,12 +11,12 @@ config = bioodo.__RESOURCE_CONFIG__['fastqc']
 
 
 # Possible section names
-SECTION_NAMES=['Header', 'Basic_Statistics',
-               'Per_base_sequence_quality', 'Per_tile_sequence_quality',
-               'Per_sequence_quality_scores', 'Per_base_sequence_content',
-               'Per_sequence_GC_content', 'Per_base_N_content',
-               'Sequence_Length_Distribution', 'Sequence_Duplication_Levels',
-               'Overrepresented_sequences', 'Adapter_Content', 'Kmer_Content']
+SECTION_NAMES = ['Header', 'Basic_Statistics',
+                 'Per_base_sequence_quality', 'Per_tile_sequence_quality',
+                 'Per_sequence_quality_scores', 'Per_base_sequence_content',
+                 'Per_sequence_GC_content', 'Per_base_N_content',
+                 'Sequence_Length_Distribution', 'Sequence_Duplication_Levels',
+                 'Overrepresented_sequences', 'Adapter_Content', 'Kmer_Content']
 
 
 @resource.register(config['fastqc']['pattern'],
@@ -52,7 +51,7 @@ def resource_fastqc_data(uri, key="Basic_Statistics", **kwargs):
     headings = ['Header'] + [re.sub(" ", "_", (re.sub(">>", "", x.split("\t")[0]))) for x in re.split("\n", data) if x.startswith(">>")]
     if key not in headings + ['Summary']:
         raise KeyError("Not in available names; analysis has not been performed")
-    ## Pass/fail summary
+    # Pass/fail summary
     if key == "Summary":
         return DataFrame.from_records([re.sub(" ", "_", x).split("\t") for x in re.findall(">>(.+)", data)], columns=["Statistic", "Value"], index="Statistic")
     for h, sec in zip(headings, sections):

@@ -1,8 +1,7 @@
 # Copyright (C) 2015 by Per Unneberg
-import re
 import pandas as pd
 import bioodo
-from bioodo import resource, annotate_by_uri, DataFrame, utils
+from bioodo import resource, annotate_by_uri, utils
 import logging
 
 

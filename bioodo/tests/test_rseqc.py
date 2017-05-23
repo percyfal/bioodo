@@ -13,8 +13,8 @@ def test_rseqc_parse(data):
     module, command, version, end, pdir = data
     fn = pdir.listdir()[0]
     if command == "rseqc_read_duplication":
-        df = odo(str(fn), DataFrame)
+        odo(str(fn), DataFrame)
         fn = pdir.listdir()[1]
-        df = odo(str(fn), DataFrame)
+        odo(str(fn), DataFrame)
     else:
-        df = odo(str(fn), DataFrame)
+        odo(str(fn), DataFrame)

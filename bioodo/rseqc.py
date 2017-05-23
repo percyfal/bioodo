@@ -14,7 +14,7 @@ config = bioodo.__RESOURCE_CONFIG__['rseqc']
                    priority=config['read_distribution']['priority'])
 @annotate_by_uri
 def resource_read_distribution(uri, **kwargs):
-    df = pd.read_table(uri, skiprows=list(range(0,4)) + [15], sep="[ ]+", engine="python")
+    df = pd.read_table(uri, skiprows=list(range(0, 4)) + [15], sep="[ ]+", engine="python")
     df = df.set_index("Group")
     return df
 

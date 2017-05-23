@@ -1,6 +1,5 @@
 # Copyright (C) 2015 by Per Unneberg
 from bioodo import sga, odo, DataFrame
-import logging
 from pytest_ngsfixtures.config import application_fixtures
 import utils
 

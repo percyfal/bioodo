@@ -12,10 +12,10 @@ config = bioodo.__RESOURCE_CONFIG__['cutadapt']
 # Potentially add regexp for adapter sections as these are repetitive
 adapter_re = re.compile(r'''
 ===\s*(?P<Read>(First read|Second read)?):?\s+Adapter\s+'(?P<Adapter>[^\s]+)'\s+===
-'''    
-)
+''')
 
 re_trim = re.compile(r'(\([0-9.]+%\)|,| |bp)')
+
 
 def _split_x(x, delim=":"):
     y = x.strip().split(delim)
