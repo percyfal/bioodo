@@ -19,7 +19,6 @@ def fixture_factory(fixture_list, unique=False, **kwargs):
                        separate directories
       kwargs(dict): keyword arguments
     """
-    logger.info(fixture_list)
     if unique:
         for i in range(len(fixture_list)):
             y = list(fixture_list[i])

@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 config = bioodo.__RESOURCE_CONFIG__['bamtools']
 
 
-@resource.register(config['bamtools']['pattern'],
-                   priority=config['bamtools']['priority'])
+@resource.register(config['stats']['pattern'],
+                   priority=config['stats']['priority'])
 @annotate_by_uri
 def resource_bamtools_stats(uri, **kwargs):
     """Parse bamtools stats text output file.

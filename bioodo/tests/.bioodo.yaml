@@ -1,5 +1,5 @@
 bamtools:
-  bamtools:
+  stats:
     pattern: '.*medium.stats'
 bcftools:
   stats:
