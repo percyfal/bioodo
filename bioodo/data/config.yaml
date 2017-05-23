@@ -19,6 +19,39 @@ fastqc:
   fastqc:
     pattern: '.*fastqc(_data.txt|.zip)'
     priority: 30
+mapdamage:
+  runtime:
+    pattern: '.*Runtime_log.txt'
+    priority: 30
+  3pGtoA_freq:
+    pattern: '.*3pGtoA_freq.txt'
+    priority: 30
+  5pCtoT_freq:
+    pattern: '.*5pCtoT_freq.txt'
+    priority: 30
+  mcmc_correct_prob_freq:
+    pattern: '.*Stats_out_MCMC_correct_prob.csv'
+    priority: 30
+  mcmc_iter:
+    pattern: '.*Stats_out_MCMC_iter.csv'
+    priority: 30
+  mcmc_iter_summ:
+    pattern: '.*Stats_out_MCMC_iter_summ_stat.csv'
+    priority: 30
+  dnacomp:
+    pattern: '.*dnacomp.txt'
+    priority: 30
+  dnacomp_genome:
+    pattern: '.*dnacomp_genome.csv'
+    priority: 30
+  lgdistribution:    
+    pattern: '.*lgdistribution.txt'
+    priority: 30
+  misincorporation:    
+    pattern: '.*misincorporation.txt'
+    priority: 30
+    
+
 picard:
   align_metrics:
     pattern: '.*.align_metrics'
