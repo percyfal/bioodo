@@ -1,7 +1,0 @@
-2016-11-21 13:57:09,017	INFO	main: Started with the command: /home/peru/anaconda3/envs/py2.7/bin/mapDamage -i s2.bam -r chr11.fa -d s2_mapdamage2
-2016-11-21 13:57:09,021	DEBUG	main: BAM read in 1.583508 seconds
-2016-11-21 13:57:09,557	INFO	mapdamage.rscript: Performing Bayesian estimates
-2016-11-21 13:57:09,558	DEBUG	mapdamage.rscript: Call: Rscript /home/peru/anaconda3/envs/py2.7/lib/python2.7/site-packages/mapdamage/Rscripts/stats/runGeneral.R --args 30 10000 10 50000 0 0 1 1 0 0 1 12 s2_mapdamage2/ /home/peru/anaconda3/envs/py2.7/lib/python2.7/site-packages/mapdamage/Rscripts/stats/ s2_mapdamage2/Stats_out 0 0 0 s2_mapdamage2/acgt_ratio.csv 0 0
-2016-11-21 14:06:19,507	DEBUG	mapdamage.rscript: Bayesian estimates completed in 549.949808 seconds
-2016-11-21 14:06:19,508	INFO	main: Successful run
-2016-11-21 14:06:19,508	DEBUG	main: Run completed in 552.070443 seconds

@@ -1,6 +1,0 @@
-ngs.settings:
-  db:
-    ref: chr11.fa
-cutadapt:
-  threeprime: ACGT
-  fiveprime: TGCA
