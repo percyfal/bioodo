@@ -50,8 +50,6 @@ mapdamage:
   misincorporation:    
     pattern: '.*misincorporation.txt'
     priority: 30
-    
-
 picard:
   align_metrics:
     pattern: '.*.align_metrics'
@@ -72,6 +70,17 @@ qualimap:
   data_frame:
     pattern: '.*coverage_across_reference.txt|.*coverage_histogram.txt|.*duplication_rate_histogram.txt|.*genome_fraction_coverage.txt|.*homopolymer_indels.txt|.*insert_size_across_reference.txt|.*insert_size_histogram.txt|.*mapped_reads_clipping_profile.txt|.*mapped_reads_gc-content_distribution.txt|.*mapped_reads_nucleotide_content.txt|.*mapping_quality_across_reference.txt|.*mapping_quality_histogram.txt'
     priority: 30
+rpkmforgenes:
+  rpkmforgenes:
+    pattern: '.*\.rpkmforgenes'
+    priority: 30
+rsem:
+  genes:
+    pattern: '.*\.genes\.results'
+    priority: 30
+  isoforms:
+    pattern: '.*\.isoforms\.results'
+    priority: 30
 rseqc:
   xls:
     pattern: '.*junction_annotation_refseq.junction.xls|.*read_GC.GC.xls|.*read_NVC.NVC.xls|.*read_dup.pos.DupRate.xls|.*read_dup.seq.DupRate.xls'
@@ -85,6 +94,10 @@ rseqc:
   data_frame:
     pattern: '.*geneBody_coverage.geneBodyCoverage.txt'
     priority: 30
+samtools:
+  stats:
+    pattern: '.*samtools_stats.txt'
+    priority: 30
 sga:
   preprocess:
     pattern: '.*sga.preprocess.log'
@@ -95,4 +108,8 @@ sga:
 star:
   log_final:
     pattern: '.*Log.final.out'
+    priority: 30
+vsearch:
+  stats:
+    pattern: '.*fastq_stats.txt'
     priority: 30

@@ -3,14 +3,17 @@ import re
 import logging
 import pandas as pd
 from bioodo import resource, annotate_by_uri, DataFrame, utils
+import bioodo
 
+config = bioodo.__RESOURCE_CONFIG__['vsearch']
 logger = logging.getLogger(__name__)
 
 SECTION_NAMES = ["Read length distribution", "Q score distribution",
                  "Truncate at first Q"]
 
 
-@resource.register('.*fastq_stats.txt', priority=30)
+@resource.register(config['stats']['pattern'],
+                   priority=config['stats']['priority'])
 @annotate_by_uri
 def resource_vsearch_fastqc_stats(uri, key="Read length distribution", **kwargs):
     """Parse vsearch fastqc_stats text output file.

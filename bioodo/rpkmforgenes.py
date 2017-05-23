@@ -2,9 +2,13 @@
 from blaze import resource
 import pandas as pd
 from .pandas import annotate_by_uri
+import bioodo
+
+config = bioodo.__RESOURCE_CONFIG__['rpkmforgenes']
 
 
-@resource.register('.+\.rpkmforgenes')
+@resource.register(config['rpkmforgenes']['pattern'],
+                   priority=config['rpkmforgenes']['priority'])
 @annotate_by_uri
 def resource_rpkmforgenes(uri, **kwargs):
     with open(uri):

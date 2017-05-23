@@ -2,8 +2,11 @@
 import logging
 import pandas as pd
 from bioodo import resource, annotate_by_uri, DataFrame, utils
+import bioodo
 
 logger = logging.getLogger(__name__)
+config = bioodo.__RESOURCE_CONFIG__['samtools']
+
 
 SECTION_NAMES = ['SN', 'FFQ', 'LFQ', 'GCF', 'GCL', 'GCC', 'IS', 'RL', 'ID', 'IC', 'COV', 'GCD']
 COLUMNS = {
@@ -24,7 +27,8 @@ COLUMNS = {
 }
 
 
-@resource.register('.*samtools_stats.txt', priority=30)
+@resource.register(config['stats']['pattern'],
+                   priority=config['stats']['priority'])
 @annotate_by_uri
 def resource_samtools_stats(uri, key="SN", **kwargs):
     """Parse samtools stats text output file.
