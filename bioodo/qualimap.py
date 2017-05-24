@@ -62,7 +62,7 @@ def resource_read_data_frame(uri, **kwargs):
 def aggregate(infiles, outfile=None, regex=None, **kwargs):
     """Aggregate individual qualimap reports to one output file
 
-    Params:
+    Args:
       infiles (list): list of input files
       outfile (str): csv output file name
       regex (str): regular expression pattern to parse input file names

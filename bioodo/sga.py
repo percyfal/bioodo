@@ -57,7 +57,7 @@ def resource_sga_filter(uri, **kwargs):
 def aggregate(infiles, outfile=None, regex=None, **kwargs):
     """Aggregate individual sga reports to one output file
 
-    Params:
+    Args:
       infiles (list): list of input files
       outfile (str): csv output file name
       regex (str): regular expression pattern to parse input file names
