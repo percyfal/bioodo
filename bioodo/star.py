@@ -13,6 +13,7 @@ config = bioodo.__RESOURCE_CONFIG__['star']
                    priority=config['log_final']['priority'])
 @annotate_by_uri
 def resource_star_log(uri, **kwargs):
+    """Parse Star Log.final.out log file"""
     df = pd.read_table(uri, sep="|", names=["name", "value"])
     df["name"] = [x.strip() for x in df["name"]]
     df["value"] = [utils.recast(x) for x in df["value"]]
@@ -32,7 +33,7 @@ def aggregate(infiles, outfile=None, regex=None, **kwargs):
 
     """
     logger.debug("Aggregating star infiles {} in star aggregate".format(",".join(infiles)))
-    df = utils.aggregate_files(infiles, regex=regex, **kwargs)
+    df = utils.aggregate(infiles, regex=regex, **kwargs)
     if outfile:
         df.to_csv(outfile)
     else:

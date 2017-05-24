@@ -70,7 +70,7 @@ def aggregate(infiles, outfile=None, regex=None, **kwargs):
 
     """
     logger.debug("Aggregating qualimap infiles {} in qualimap aggregate".format(",".join(infiles)))
-    df = utils.aggregate_files(infiles, regex=regex, **kwargs)
+    df = utils.aggregate(infiles, regex=regex, **kwargs)
     if outfile:
         df.to_csv(outfile)
     else:

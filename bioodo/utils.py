@@ -63,20 +63,26 @@ def annotate_df(infile, parser, groupnames=["SM"]):
     return df
 
 
-def aggregate_files(infiles, regex=None, parser=None, **kwargs):
+def aggregate(infiles, regex=None, parser=None, **kwargs):
     """Helper function to aggregate files.
 
     Given a list of input files for a bioinformatics application,
     seamlessly apply odo to each input file and concatenate the
     results. Additional file-based information, such as sample names,
     can be added on the fly by supplying a regular expression with
-    group names that parses the file names. Whatever value is
+    group names that parses the file names. The regular expression
+    group name will be added to the data frame.
+
+    Note that the function is not directly called from
+    :mod:`bioodo.utils` but rather from one of the application
+    modules, as the following example shows.
 
     Examples:
 
-      The following example will parse two qualimap output files,
-      extract sample names via the regular expression, and concatenate
-      the results together with an additional column named "sample".
+      The following example uses :func:`bioodo.qualimap.aggregate` to
+      parse two qualimap output files, extract sample names via the
+      regular expression, and concatenate the results together with an
+      additional column named "sample".
 
       .. code-block:: python
 
