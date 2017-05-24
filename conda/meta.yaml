@@ -1,5 +1,5 @@
 {% set name = "bioodo" %}
-{% set version = "0.0.0" %}
+{% set version = "0.1.0a1" %}
 
 package:
   name: {{ name|lower }}
@@ -26,7 +26,6 @@ test:
     - pytest
     - pytest-runner
     - pytest-ngsfixtures
-    - pytest-capturelog
 
   imports:
     - bioodo
