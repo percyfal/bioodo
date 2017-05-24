@@ -1,9 +1,11 @@
 # Copyright (C) 2016 by Per Unneberg
+import os
 import logging
 import bioodo
 from bioodo import settings
 
-settings.CONFIGFILES = ["tests/.bioodo.yaml"]
+settings.CONFIGFILES = [os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                                     ".bioodo.yaml"))]
 bioodo.load_config()
 
 pytest_plugins = 'pytester'
