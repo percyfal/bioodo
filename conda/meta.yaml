@@ -1,0 +1,36 @@
+{% set name = "bioodo" %}
+{% set version = "0.1.0a1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+source:
+  path: ../../bioodo
+build:
+  number: 1
+  skip: False
+  script: $PYTHON setup.py install --single-version-externally-managed --record record.txt
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - pyyaml
+    - odo
+    - blaze
+
+test:
+  requires:
+    # tests
+    - pytest
+    - pytest-runner
+    - pytest-ngsfixtures
+
+  imports:
+    - bioodo
+
+about:
+  home: https://github.com/percyfal/bioodo.git
+  license: GNU General Public License v3
+  summary: 'odo <https://github.com/blaze/odo> extensions for bioinformatics.'

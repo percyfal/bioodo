@@ -19,13 +19,14 @@
 #
 
 import os
+import re
 import sys
-import sphinx_bootstrap_theme
+import sphinx_rtd_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-ROOTDIR=os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+ROOTDIR=os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 sys.path.insert(0, ROOTDIR)
 
 # -- General configuration ------------------------------------------------
@@ -145,20 +146,20 @@ todo_include_todos = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'bootstrap'
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+html_theme = 'sphinx_rtd_theme'
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-html_theme_options = {
+#html_theme_options = {
     # Navigation bar title. (Default: ``project`` value)
     #'navbar_title': "Demo",
 
     # Tab name for entire site. (Default: "Site")
-    'navbar_site_name': "Site",
+    # 'navbar_site_name': "Site",
 
     # A list of tuples containing pages or urls to link to.
     # Valid tuples should be in the following forms:
@@ -171,14 +172,14 @@ html_theme_options = {
     # ],
 
     # Render the next and previous page links in navbar. (Default: true)
-    'navbar_sidebarrel': False,
+    # 'navbar_sidebarrel': False,
 
     # Render the current pages TOC in the navbar. (Default: true)
-    'navbar_pagenav': True,
+    # 'navbar_pagenav': True,
 
     # Global TOC depth for "site" navbar tab. (Default: 1)
     # Switching to -1 shows all levels.
-    'globaltoc_depth': 3,
+    # 'globaltoc_depth': 3,
 
     # Include hidden TOCs in Site navbar?
     #
@@ -187,19 +188,19 @@ html_theme_options = {
     # will break.
     #
     # Values: "true" (default) or "false"
-    'globaltoc_includehidden': "true",
+    # 'globaltoc_includehidden': "true",
 
     # HTML navbar class (Default: "navbar") to attach to <div> element.
     # For black navbar, do "navbar navbar-inverse"
-    'navbar_class': "navbar navbar-inverse",
+    # 'navbar_class': "navbar navbar-inverse",
 
     # Fix navigation bar to top of page?
     # Values: "true" (default) or "false"
-    'navbar_fixed_top': "true",
+    # 'navbar_fixed_top': "true",
 
     # Location of link to source.
     # Options are "nav" (default), "footer" or anything else to exclude.
-    'source_link_position': "footer",
+    # 'source_link_position': "footer",
 
     # Bootswatch (http://bootswatch.com/) theme.
     #
@@ -209,8 +210,8 @@ html_theme_options = {
 
     # Choose Bootstrap version.
     # Values: "3" (default) or "2" (in quotes)
-    'bootstrap_version': "3",
-}
+    #  'bootstrap_version': "3",
+#}
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = []

@@ -1,0 +1,115 @@
+# Default configuration for odo resources
+bwa:
+  bwa_mem:
+    pattern: '.*bwa_mem.log'
+    priority: 30
+bamtools:
+  stats:
+    pattern: '.*.bamtools.stats.txt'
+    priority: 30
+bcftools:
+  stats:
+    pattern: '.*.vcf.gz.stats'
+    priority: 30
+cutadapt:
+  metrics:
+    pattern: '.*.cutadapt_metrics.txt'
+    priority: 30
+fastqc:
+  fastqc:
+    pattern: '.*fastqc(_data.txt|.zip)'
+    priority: 30
+mapdamage:
+  runtime:
+    pattern: '.*Runtime_log.txt'
+    priority: 30
+  3pGtoA_freq:
+    pattern: '.*3pGtoA_freq.txt'
+    priority: 30
+  5pCtoT_freq:
+    pattern: '.*5pCtoT_freq.txt'
+    priority: 30
+  mcmc_correct_prob_freq:
+    pattern: '.*Stats_out_MCMC_correct_prob.csv'
+    priority: 30
+  mcmc_iter:
+    pattern: '.*Stats_out_MCMC_iter.csv'
+    priority: 30
+  mcmc_iter_summ:
+    pattern: '.*Stats_out_MCMC_iter_summ_stat.csv'
+    priority: 30
+  dnacomp:
+    pattern: '.*dnacomp.txt'
+    priority: 30
+  dnacomp_genome:
+    pattern: '.*dnacomp_genome.csv'
+    priority: 30
+  lgdistribution:    
+    pattern: '.*lgdistribution.txt'
+    priority: 30
+  misincorporation:    
+    pattern: '.*misincorporation.txt'
+    priority: 30
+picard:
+  align_metrics:
+    pattern: '.*.align_metrics'
+    priority: 30
+  insert_metrics:
+    pattern: '.*.insert_size_metrics'
+    priority: 30
+  hs_metrics:
+    pattern: '.*.hs_metrics'
+    priority: 30
+  dup_metrics:
+    pattern: '.*.dup_metrics.log'
+    priority: 30
+qualimap:
+  genome_results:
+    pattern: '.*genome_results.txt'
+    priority: 30
+  data_frame:
+    pattern: '.*coverage_across_reference.txt|.*coverage_histogram.txt|.*duplication_rate_histogram.txt|.*genome_fraction_coverage.txt|.*homopolymer_indels.txt|.*insert_size_across_reference.txt|.*insert_size_histogram.txt|.*mapped_reads_clipping_profile.txt|.*mapped_reads_gc-content_distribution.txt|.*mapped_reads_nucleotide_content.txt|.*mapping_quality_across_reference.txt|.*mapping_quality_histogram.txt'
+    priority: 30
+rpkmforgenes:
+  rpkmforgenes:
+    pattern: '.*\.rpkmforgenes'
+    priority: 30
+rsem:
+  genes:
+    pattern: '.*\.genes\.results'
+    priority: 30
+  isoforms:
+    pattern: '.*\.isoforms\.results'
+    priority: 30
+rseqc:
+  xls:
+    pattern: '.*junction_annotation_refseq.junction.xls|.*read_GC.GC.xls|.*read_NVC.NVC.xls|.*read_dup.pos.DupRate.xls|.*read_dup.seq.DupRate.xls'
+    priority: 30
+  read_distribution:
+    pattern: '.*read_distribution.txt'
+    priority: 30
+  clipping_profile:
+    pattern: '.*clippingprofile_(pe|se).clipping_profile.xls'
+    priority: 30
+  data_frame:
+    pattern: '.*geneBody_coverage.geneBodyCoverage.txt'
+    priority: 30
+samtools:
+  stats:
+    pattern: '.*samtools_stats.txt'
+    priority: 30
+sga:
+  preprocess:
+    pattern: '.*sga.preprocess.log'
+    priority: 30
+  filter:
+    pattern: '.*sga.filter.log'
+    priority: 30
+star:
+  log_final:
+    pattern: '.*Log.final.out'
+    priority: 30
+vsearch:
+  stats:
+    pattern: '.*fastq_stats.txt'
+    priority: 30

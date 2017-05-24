@@ -2,6 +2,7 @@
 import pandas as pd
 from blaze import resource
 
+
 @resource.register('.+\.(xls)(.gz)?')
 def resource_xls(uri, **kwargs):
     delimiter = "\t"
