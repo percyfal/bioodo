@@ -11,7 +11,15 @@ logger = logging.getLogger(__name__)
 
 # FIXME: utilize pandas builtin functionality for handling these issues
 def recast(x, strpfmt="%b %d %H:%M:%S"):
-    """Reformat strings to numeric or datestrings"""
+    """Reformat strings to numeric or datestrings.
+
+    Args:
+      x (str): string
+      strpfmt (str): strpfmt time string
+
+    Returns:
+      datetime.strptime: datetime object
+    """
     if isinstance(x, float):
         if math.isnan(x):
             return x
@@ -56,9 +64,29 @@ def annotate_df(infile, parser, groupnames=["SM"]):
 
 
 def aggregate_files(infiles, regex=None, parser=None, **kwargs):
-    """Helper functions to aggregate files
+    """Helper function to aggregate files.
 
-    Params:
+    Given a list of input files for a bioinformatics application,
+    seamlessly apply odo to each input file and concatenate the
+    results. Additional file-based information, such as sample names,
+    can be added on the fly by supplying a regular expression with
+    group names that parses the file names. Whatever value is
+
+    Examples:
+
+      The following example will parse two qualimap output files,
+      extract sample names via the regular expression, and concatenate
+      the results together with an additional column named "sample".
+
+      .. code-block:: python
+
+         from bioodo import qualimap
+         qualimap_files = ["Sample1/genome_results.txt",
+                           "Sample2/genome_results.txt"]
+         df = qualimap.aggregate(qualimap_files,
+                                 regex="(?P<sample>Sample[0-9]+)/genome_results.txt")
+
+    Args:
       infiles (list): list of input file names
       regex (str): regex pattern to parse file
       parser (func): bioodo parser function to use in case the generic
@@ -67,6 +95,7 @@ def aggregate_files(infiles, regex=None, parser=None, **kwargs):
 
     Returns:
       Aggregated data frame
+
     """
     import odo
     dflist = []
