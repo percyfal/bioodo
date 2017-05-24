@@ -26,7 +26,6 @@ test:
     - pytest
     - pytest-runner
     - pytest-ngsfixtures
-    - pytest-capturelog
 
   imports:
     - bioodo
