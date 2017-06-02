@@ -165,7 +165,8 @@ def aggregate_factory(module):
             else:
                 try:
                     df = odo.odo(f, DataFrame, **kwargs)
-                except:
+                except NotImplementedError as e:
+                    logger.error("Unable to parse uri {uri}; check that file extension is handled by the {module} bioodo module; else configure extension in .bioodo.yaml".format(uri=f, module=module))
                     raise
             if regex:
                 m = re.search(regex, f)
