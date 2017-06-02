@@ -29,8 +29,9 @@ def test_qualimap(data):
         assert list(df.index)[0] == 'scaffold1'
     else:
         fn = pdir.listdir()[0]
-        # Just check that we can read the file
         df = odo(str(fn), DataFrame)
+        assert "#" not in df.columns[0]
+
 
 
 def test_qualimap_aggregate(qualimap_aggregate_data):

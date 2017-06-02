@@ -55,6 +55,9 @@ def resource_genome_results(uri, key="Globals", **kwargs):
 @annotate_by_uri
 def resource_read_data_frame(uri, **kwargs):
     d = pd.read_table(uri)
+    columns = list(d.columns)
+    columns[0] = re.sub("#", "", columns[0]).strip()
+    d.columns = columns
     return d
 
 
