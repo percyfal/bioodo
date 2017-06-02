@@ -36,19 +36,4 @@ def resource_bamtools_stats(uri, **kwargs):
     return df
 
 
-def aggregate(infiles, outfile=None, regex=None, **kwargs):
-    """Aggregate individual bamtools reports to one output file
-
-    Args:
-      infiles (list): list of input files
-      outfile (str): csv output file name
-      regex (str): regular expression pattern to parse input file names
-      kwargs (dict): keyword arguments
-
-    """
-    logger.debug("Aggregating bamtools infiles {} in bamtools aggregate".format(",".join(infiles)))
-    df = utils.aggregate(infiles, regex=regex, **kwargs)
-    if outfile:
-        df.to_csv(outfile)
-    else:
-        return df
+aggregate = utils.aggregate_factory("bamtools")

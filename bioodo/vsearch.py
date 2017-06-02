@@ -54,20 +54,4 @@ def resource_vsearch_fastqc_stats(uri, key="Read length distribution", **kwargs)
     return df
 
 
-# Aggregation function
-def aggregate(infiles, outfile=None, regex=None, **kwargs):
-    """Aggregate individual vsearch reports to one output file
-
-    Args:
-      infiles (list): list of input files
-      outfile (str): csv output file name
-      regex (str): regular expression pattern to parse input file names
-      kwargs (dict): keyword arguments
-
-    """
-    logger.debug("Aggregating vsearch infiles {} in vsearch aggregate".format(",".join(infiles)))
-    df = utils.aggregate(infiles, regex=regex, **kwargs)
-    if outfile:
-        df.to_csv(outfile)
-    else:
-        return df
+aggregate = utils.aggregate_factory("vsearch")

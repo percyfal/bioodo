@@ -60,20 +60,4 @@ def resource_xls(uri, **kwargs):
     return df
 
 
-# Aggregation function
-def aggregate(infiles, outfile=None, regex=None, **kwargs):
-    """Aggregate individual rseqc reports to one output file
-
-    Args:
-      infiles (list): list of input files
-      outfile (str): csv output file name
-      regex (str): regular expression pattern to parse input file names
-      kwargs (dict): keyword arguments
-
-    """
-    logger.debug("Aggregating rseqc infiles {} in rseqc aggregate".format(",".join(infiles)))
-    df = utils.aggregate(infiles, regex=regex, **kwargs)
-    if outfile:
-        df.to_csv(outfile)
-    else:
-        return df
+aggregate = utils.aggregate_factory("rseqc")

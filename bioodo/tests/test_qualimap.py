@@ -39,3 +39,12 @@ def test_qualimap_aggregate(qualimap_aggregate_data):
                              if x.isdir()],
                             regex=".*/(?P<repeat>[0-9]+)/homopolymer_indels.txt")
     assert sorted(list(df["repeat"].unique())) == ['0', '1']
+
+
+def test_qualimap_aggregate_compress(qualimap_aggregate_data):
+    module, command, version, end, pdir = qualimap_aggregate_data
+    qualimap.aggregate([str(x.listdir()[0]) for x in pdir.listdir()
+                        if x.isdir()],
+                       regex=".*/(?P<repeat>[0-9]+)/homopolymer_indels.txt",
+                       outfile=str(pdir.join("test.csv.gz")))
+    assert pdir.join("test.csv.gz").exists()

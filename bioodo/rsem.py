@@ -1,8 +1,7 @@
 # Copyright (C) 2015 by Per Unneberg
-from blaze import resource
 import pandas as pd
-from .pandas import annotate_by_uri
 import bioodo
+from bioodo import resource, annotate_by_uri, utils
 
 config = bioodo.__RESOURCE_CONFIG__['rsem']
 
@@ -25,3 +24,6 @@ def resource_isoforms_results(uri, **kwargs):
         data = pd.read_csv(uri, sep="\t", header=0, comment="#",
                            index_col=["transcript_id"])
     return data
+
+
+aggregate = utils.aggregate_factory("rsem")

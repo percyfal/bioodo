@@ -1,8 +1,7 @@
 # Copyright (C) 2015 by Per Unneberg
-from blaze import resource
 import pandas as pd
-from .pandas import annotate_by_uri
 import bioodo
+from bioodo import resource, annotate_by_uri, utils
 
 config = bioodo.__RESOURCE_CONFIG__['rpkmforgenes']
 
@@ -16,3 +15,6 @@ def resource_rpkmforgenes(uri, **kwargs):
                            names=["gene_id", "transcript_id", "FPKM", "TPM"],
                            index_col=["gene_id"])
     return data
+
+
+aggregate = utils.aggregate_factory("rpkmforgenes")

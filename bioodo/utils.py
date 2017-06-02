@@ -63,8 +63,15 @@ def annotate_df(infile, parser, groupnames=["SM"]):
     return df
 
 
-def aggregate(infiles, regex=None, parser=None, **kwargs):
-    """Helper function to aggregate files.
+def aggregate_factory(module):
+    """Factory function to generate aggregation function.
+
+    Args:
+      module (str): module name
+
+    Returns:
+      function
+
 
     Given a list of input files for a bioinformatics application,
     seamlessly apply odo to each input file and concatenate the
@@ -73,9 +80,6 @@ def aggregate(infiles, regex=None, parser=None, **kwargs):
     group names that parses the file names. The regular expression
     group name will be added to the data frame.
 
-    Note that the function is not directly called from
-    :mod:`bioodo.utils` but rather from one of the application
-    modules, as the following example shows.
 
     Examples:
 
@@ -97,26 +101,82 @@ def aggregate(infiles, regex=None, parser=None, **kwargs):
       regex (str): regex pattern to parse file
       parser (func): bioodo parser function to use in case the generic
                      parsing fails
+      outfile (str): outfile name. Compression will be inferred from suffix
       kwargs (dict): keyword arguments
 
     Returns:
-      Aggregated data frame
-
+      Aggregated data frame or None if outfile given
     """
-    import odo
-    dflist = []
-    for f in infiles:
-        logger.debug("loading {}".format(f))
-        if parser:
-            df = odo.odo(parser(f, **kwargs), DataFrame)
-        else:
-            df = odo.odo(f, DataFrame, **kwargs)
-        if regex:
-            m = re.search(regex, f)
+    def aggregate(infiles, regex=None, parser=None, outfile=None, **kwargs):
+        """Helper function to aggregate files
+
+        Given a list of input files for a bioinformatics application,
+        seamlessly apply odo to each input file and concatenate the
+        results. Additional file-based information, such as sample names,
+        can be added on the fly by supplying a regular expression with
+        group names that parses the file names. The regular expression
+        group name will be added to the data frame.
+
+        Note that the function is not directly called from
+        :mod:`bioodo.utils` but rather from one of the application
+        modules, as the following example shows.
+
+        Examples:
+
+          The following example uses :func:`bioodo.qualimap.aggregate` to
+          parse two qualimap output files, extract sample names via the
+          regular expression, and concatenate the results together with an
+          additional column named "sample".
+
+          .. code-block:: python
+
+             from bioodo import qualimap
+             qualimap_files = ["Sample1/genome_results.txt",
+                               "Sample2/genome_results.txt"]
+             df = qualimap.aggregate(qualimap_files,
+                                 regex="(?P<sample>Sample[0-9]+)/genome_results.txt")
+
+        Args:
+          infiles (list): list of input file names
+          regex (str): regex pattern to parse file
+          parser (func): bioodo parser function to use in case the generic
+                         parsing fails
+          outfile (str): outfile name. Compression will be inferred from suffix
+          kwargs (dict): keyword arguments
+
+        Returns:
+          Aggregated data frame or None if outfile given
+
+        """
+        logger.debug("Aggregating {module} infiles {infiles} in {module} aggregate".format(
+            module=module, infiles=",".join(infiles)))
+        compression = None
+        if outfile:
+            _map = {'gz': 'gzip', 'bz2': 'bz2', 'xz': 'xz'}
+            m = re.search("\.(?P<compression>gz|bz2|xz)$", outfile)
             if m:
-                logger.debug("adding columns {}".format(",".join(["{}={}".format(k, v) for k, v in m.groupdict().items()])))
-                for k, v in m.groupdict().items():
-                    df[k] = v
-        dflist.append(df)
-    df = pd.concat(dflist)
-    return df
+                compression = _map[m.group("compression")]
+        import odo
+        dflist = []
+        for f in infiles:
+            logger.debug("loading {}".format(f))
+            if parser:
+                df = odo.odo(parser(f, **kwargs), DataFrame)
+            else:
+                try:
+                    df = odo.odo(f, DataFrame, **kwargs)
+                except:
+                    raise
+            if regex:
+                m = re.search(regex, f)
+                if m:
+                    logger.debug("adding columns {}".format(",".join(["{}={}".format(k, v) for k, v in m.groupdict().items()])))
+                    for k, v in m.groupdict().items():
+                        df[k] = v
+            dflist.append(df)
+        df = pd.concat(dflist)
+        if outfile:
+            df.to_csv(outfile, compression=compression)
+        else:
+            return df
+    return aggregate
