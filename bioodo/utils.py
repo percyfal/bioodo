@@ -169,6 +169,7 @@ def aggregate_factory(module):
                     logger.error("Unable to parse uri {uri}; check that file extension is handled by the {module} bioodo module; else configure extension in .bioodo.yaml".format(uri=f, module=module))
                     raise
             if regex:
+                logger.debug("Searching uri {} with regex {}".format(f, regex))
                 m = re.search(regex, f)
                 if m:
                     logger.debug("adding columns {}".format(",".join(["{}={}".format(k, v) for k, v in m.groupdict().items()])))
