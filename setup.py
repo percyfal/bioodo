@@ -37,7 +37,6 @@ package_path(join(ROOT, 'bioodo', 'data'), 'config.yaml')
 scripts = []                    
 
 REQUIRES = [
-    'blaze',
     'pandas',
     'odo',
     'blaze',
