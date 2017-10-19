@@ -19,7 +19,36 @@ function :func:`bioodo.star.resource_star_log` and returns a pandas
 DataFrame object.
 
 Output files can also be aggregated with function
-:func:`bioodo.utils.aggregate`. See the docstring for examples.
+:func:`bioodo.utils.aggregate`:
+
+.. code-block:: python
+
+   from bioodo import star, odo, DataFrame
+   df = star.aggregate(['/path/to/sample1/Log.final.out',
+		        '/path/to/sample2/Log.final.out'],
+			annotate=True)
+
+Here, two output files will be aggregated. Data provenance is tracked
+through the `annotate` option, which will cause the aggregation
+function to add an additional column named `uri` in which the uris
+themselves will be stored (`/path/to/sample1/Log.final.out` and
+`/path/to/sample2/Log.final.out` in this case).
+
+Alternatively, data provenance can be tracked via a custom parsing of
+the uri by passing a regex to the `regex` option:
+
+.. code-block:: python
+
+   from bioodo import star, odo, DataFrame
+   df = star.aggregate(['/path/to/sample1/Log.final.out',
+		        '/path/to/sample2/Log.final.out'],
+			regex=".*/(?P<sample>sample[0-9]+/Log.final.out)")
+
+Here, an additional column `sample` will be added, in which matches to
+the regular expression pattern will be stored (`sample1` and `sample2`
+in this case).
+
+See the docstring for further examples.
 
 
 

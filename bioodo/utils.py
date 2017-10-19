@@ -50,11 +50,12 @@ def annotate_df(infile, parser, groupnames=["SM"]):
 
     Args:
       infile (str): file name
-      parser (re): regexp object to parse input file name with. Metadata information to parse is stored in file name
-
+      parser (re): regexp object to parse input file name with.
+                   Metadata information to parse is stored in file name
       groupnames (list): list of parser group names to use. For each
-      name <name>, the parser should have a corresponding (?P<name>...)
-      expression
+                         name <name>, the parser should have a
+                         corresponding (?P<name>...) expression
+
     """
     df = odo(infile, pd.DataFrame)
     m = parser.parse(infile)
@@ -143,6 +144,7 @@ def aggregate_factory(module):
                          parsing fails
           outfile (str): outfile name. Compression will be inferred from suffix
           kwargs (dict): keyword arguments
+          long (bool): output data in long format (default False)
 
         Returns:
           Aggregated data frame or None if outfile given
