@@ -174,10 +174,10 @@ def aggregate_factory(module):
         for f in infiles:
             logger.debug("loading {}".format(f))
             if parser:
-                df = odo.odo(parser(f, **kwargs), DataFrame, regex=regex)
+                df = odo.odo(parser(f, **kwargs), DataFrame)
             else:
                 try:
-                    df = odo.odo(f, DataFrame, regex=regex, **kwargs)
+                    df = odo.odo(f, DataFrame, **kwargs)
                 except NotImplementedError:
                     logger.error("Unable to parse uri {uri};".format(uri=f) +
                                  " check that file extension is handled by" +
