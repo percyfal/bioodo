@@ -35,10 +35,11 @@ def annotate_by_uri(func):
         logger.debug("Searching uri {} with regex {}".format(uri, regex))
         m = re.search(regex, uri)
         if m:
-            logger.debug("adding columns {}".format(",".join(["{}={}".format(k, v) for k, v in m.groupdict().items()])))
+            logger.debug("adding columns {}".format(
+                ",".join(["{}={}".format(k, v)
+                          for k, v in m.groupdict().items()])))
             for k, v in m.groupdict().items():
                 df[k] = v
-
 
     def wrap(uri, **kwargs):
         df = func(uri, **kwargs)

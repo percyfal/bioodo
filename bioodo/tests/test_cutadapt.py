@@ -21,6 +21,7 @@ def test_cutadapt(cutadapt_metrics):
 
 def test_cutadapt_aggregate(cutadapt_aggregate_data):
     module, command, version, end, pdir = cutadapt_aggregate_data
-    df = cutadapt.aggregate([str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
-                            regex=".*/(?P<repeat>[0-9]+)/cutadapt_metrics.txt")
+    df = cutadapt.aggregate(
+        [str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
+        regex=".*/(?P<repeat>[0-9]+)/cutadapt_metrics.txt")
     assert sorted(list(df["repeat"].unique())) == ['0', '1']

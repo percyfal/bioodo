@@ -24,7 +24,8 @@ def test_vsearch_fastq_stats(data):
 
 def test_vsearch_aggregate(aggregate_data):
     module, command, version, end, pdir = aggregate_data
-    df = vsearch.aggregate([str(x.listdir()[0]) for x in pdir.listdir()
-                            if x.isdir()],
-                           regex=".*/(?P<repeat>[0-9]+)/medium.fastq_stats.txt")
+    df = vsearch.aggregate(
+        [str(x.listdir()[0]) for x in pdir.listdir()
+         if x.isdir()],
+        regex=".*/(?P<repeat>[0-9]+)/medium.fastq_stats.txt")
     assert sorted(list(df["repeat"].unique())) == ['0', '1']

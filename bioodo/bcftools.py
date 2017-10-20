@@ -55,9 +55,13 @@ def resource_bcftools_stats(uri, key="SN", **kwargs):
       DataFrame: DataFrame for requested section
     """
     if key not in SECTION_NAMES:
-        raise KeyError("Not in allowed section names; allowed values are {}".format(", ".join(SECTION_NAMES + ["Summary"])))
+        raise KeyError("Not in allowed section names; " +
+                       "allowed values are {}".format(
+                           ", ".join(SECTION_NAMES + ["Summary"])))
     with open(uri) as fh:
-        data = [[y for y in x.replace(":", "").strip().split("\t")[1:] if not y.startswith("#")] for x in fh.readlines() if x.startswith(key)]
+        data = [[y for y in x.replace(":", "").strip().split("\t")[1:]
+                 if not y.startswith("#")]
+                for x in fh.readlines() if x.startswith(key)]
     df = DataFrame.from_records(data, columns=COLUMNS[key])
     df = df.apply(pd.to_numeric, errors='ignore')
     i = INDEX_COLUMN[key]

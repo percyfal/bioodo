@@ -10,9 +10,10 @@ config = bioodo.__RESOURCE_CONFIG__['cutadapt']
 
 
 # Potentially add regexp for adapter sections as these are repetitive
-adapter_re = re.compile(r'''
-===\s*(?P<Read>(First read|Second read)?):?\s+Adapter\s+'(?P<Adapter>[^\s]+)'\s+===
-''')
+regex = "\n===\s*(?P<Read>(First read|Second read)?):?" + \
+        "\s+Adapter\s+'(?P<Adapter>[^\s]+)'\s+==="
+adapter_re = re.compile(regex)
+
 
 re_trim = re.compile(r'(\([0-9.]+%\)|,| |bp)')
 
@@ -30,8 +31,9 @@ def resource_cutadapt_metrics(uri, **kwargs):
     with open(uri) as fh:
         data = "".join(fh)
     sections = re.split("\n===.*===\n", data)
-    df = DataFrame.from_records([_split_x(x) for x in sections[1].split("\n") if x],
-                                index=["statistic"], columns=["statistic", "value"])
+    df = DataFrame.from_records(
+        [_split_x(x) for x in sections[1].split("\n") if x],
+        index=["statistic"], columns=["statistic", "value"])
     df["value"] = pd.to_numeric(df["value"])
     return df
 

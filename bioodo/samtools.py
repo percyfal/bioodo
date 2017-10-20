@@ -8,7 +8,8 @@ logger = logging.getLogger(__name__)
 config = bioodo.__RESOURCE_CONFIG__['samtools']
 
 
-SECTION_NAMES = ['SN', 'FFQ', 'LFQ', 'GCF', 'GCL', 'GCC', 'IS', 'RL', 'ID', 'IC', 'COV', 'GCD']
+SECTION_NAMES = ['SN', 'FFQ', 'LFQ', 'GCF', 'GCL', 'GCC',
+                 'IS', 'RL', 'ID', 'IC', 'COV', 'GCD']
 COLUMNS = {
     'SN': ['statistic', 'value'],
     'FFQ': None,
@@ -40,10 +41,24 @@ def resource_samtools_stats(uri, key="SN", **kwargs):
     Returns:
       DataFrame: DataFrame for requested section
     """
+    def _parse():
+        data = []
+        with open(uri) as fh:
+            for x in fh.readlines():
+                if not x.startswith(key):
+                    continue
+                y = []
+                for z in x.replace(":", "").strip().split("\t")[1:]:
+                    if not z.startswith("#"):
+                        y.append(z)
+                data.append(y)
+        return data
+
     if key not in SECTION_NAMES:
-        raise KeyError("Not in allowed section names; allowed values are {}".format(", ".join(SECTION_NAMES + ["Summary"])))
-    with open(uri) as fh:
-        data = [[y for y in x.replace(":", "").strip().split("\t")[1:] if not y.startswith("#")] for x in fh.readlines() if x.startswith(key)]
+        raise KeyError("Not in allowed section names; " +
+                       "allowed values are {}".format(
+                           ", ".join(SECTION_NAMES + ["Summary"])))
+    data = _parse()
     if key in ['FFQ', 'LFQ']:
         df = DataFrame.from_records(data)
         df = df.apply(pd.to_numeric, errors='ignore')
