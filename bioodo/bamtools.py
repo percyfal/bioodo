@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 import re
 import bioodo
-from bioodo import resource, annotate_by_uri, DataFrame, utils
+from bioodo import resource, annotate_by_uri, pivot, DataFrame, utils
 
 logger = logging.getLogger(__name__)
 config = bioodo.__RESOURCE_CONFIG__['bamtools']
@@ -11,6 +11,7 @@ config = bioodo.__RESOURCE_CONFIG__['bamtools']
 
 @resource.register(config['stats']['pattern'],
                    priority=config['stats']['priority'])
+@pivot
 @annotate_by_uri
 def resource_bamtools_stats(uri, **kwargs):
     """Parse bamtools stats text output file.
@@ -39,7 +40,6 @@ def resource_bamtools_stats(uri, **kwargs):
     df['percent'].replace("[\(\)%]", "", inplace=True, regex=True)
     df["percent"] = pd.to_numeric(df['percent'], errors="ignore")
     df["value"] = pd.to_numeric(df['value'], errors="ignore")
-    df = df.set_index('statistic')
     return df
 
 
