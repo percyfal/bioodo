@@ -1,9 +1,10 @@
 # Copyright (C) 2015 by Per Unneberg
+import os
 from bioodo import rseqc, odo, DataFrame
 from pytest_ngsfixtures.config import application_fixtures
 import utils
 
-blacklist = ["rseqc_junction_annotation"]
+blacklist = ["rseqc_junction_annotation", "rseqc_read_duplication"]
 fixtures = application_fixtures(application="rseqc")
 fixture_list = [f for f in fixtures if f[1] not in blacklist]
 data = utils.fixture_factory(fixture_list, scope="function")
@@ -24,7 +25,8 @@ def test_rseqc_parse(data):
 
 def test_rseqc_aggregate(rseqc_aggregate_data):
     module, command, version, end, pdir = rseqc_aggregate_data
+    infiles = [str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()]
     df = rseqc.aggregate(
-        [str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
-        regex=".*/(?P<repeat>[0-9]+)/medium.stats")
+        infiles,
+        regex=".*/(?P<repeat>[0-9]+)/" + os.path.basename(infiles[0]))
     assert sorted(list(df["repeat"].unique())) == ['0', '1']

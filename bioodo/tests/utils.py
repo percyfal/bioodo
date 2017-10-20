@@ -78,7 +78,8 @@ def aggregation_fixture_factory(fixture_list, repeat, **kwargs):
                          for x in fixture_list])
     def bioodo_aggregation_fixture(request, tmpdir_factory):
         # NB: fmtdict is a dictionary, potentially pointing to
-        # multiple output files
+        # multiple output files; if so the multiple files must be put
+        # in the same directory
         module, command, version, end, fmtdict = request.param
         params = {'version': version, 'end': end}
         keys = kwargs.get("keys", fmtdict.keys())
