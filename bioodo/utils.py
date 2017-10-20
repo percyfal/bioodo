@@ -59,8 +59,9 @@ def annotate_df(infile, parser, groupnames=["SM"]):
                    Metadata information to parse is stored in file name
 
       groupnames (list): list of parser group names to use. For each
-      name <name>, the parser should have a corresponding (?P<name>...)
-      expression
+                         name <name>, the parser should have a
+                         corresponding (?P<name>...) expression
+
     """
     df = odo(infile, pd.DataFrame)
     m = parser.parse(infile)
@@ -149,6 +150,7 @@ def aggregate_factory(module):
           outfile (str): outfile name. Compression will be inferred from suffix
           regex (str): regex pattern to parse file
           kwargs (dict): keyword arguments
+          long (bool): output data in long format (default False)
 
         See also arguments to :func:`pandas.annotate_by_uri` for more
         annotation options.
@@ -172,10 +174,10 @@ def aggregate_factory(module):
         for f in infiles:
             logger.debug("loading {}".format(f))
             if parser:
-                df = odo.odo(parser(f, **kwargs), DataFrame, regex=regex)
+                df = odo.odo(parser(f, **kwargs), DataFrame)
             else:
                 try:
-                    df = odo.odo(f, DataFrame, regex=regex, **kwargs)
+                    df = odo.odo(f, DataFrame, **kwargs)
                 except NotImplementedError:
                     logger.error("Unable to parse uri {uri};".format(uri=f) +
                                  " check that file extension is handled by" +

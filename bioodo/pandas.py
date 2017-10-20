@@ -56,3 +56,29 @@ def annotate_by_uri(func):
         annotation_fn(df, uri, **kwargs)
         return df
     return wrap
+
+
+def pivot(func):
+    """Decorator function pivot.
+
+    Wrap function with wrapper that will pivot a data frame to wide
+    format.
+
+    Params:
+      by (str, list): column(s) to pivot on
+
+    """
+    def wrap(uri, **kwargs):
+        df = func(uri, **kwargs)
+        columns = kwargs.get('columns', None)
+        index = kwargs.get('index', None)
+        values = kwargs.get('values', None)
+        if columns is None and index is None and values is None:
+            return df
+        if isinstance(values, list):
+            dfdict = {k: df.pivot(index=index, columns=columns, values=k)
+                      for k in values}
+            return pd.concat(dfdict.values(), axis=1, keys=dfdict.keys())
+        else:
+            return df.pivot(index=index, columns=columns, values=values)
+    return wrap

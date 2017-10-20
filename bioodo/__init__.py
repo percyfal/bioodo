@@ -15,7 +15,7 @@ from odo import odo
 
 # Module imports for all submodules
 from blaze import resource, DataFrame
-from .pandas import annotate_by_uri
+from .pandas import annotate_by_uri, pivot
 import numpy as np
 import re
 import logging
