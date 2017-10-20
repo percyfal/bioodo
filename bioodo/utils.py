@@ -113,7 +113,7 @@ def aggregate_factory(module):
     Returns:
       Aggregated data frame or None if outfile given
     """
-    def aggregate(infiles, regex=None, parser=None, outfile=None, **kwargs):
+    def aggregate(infiles, parser=None, outfile=None, **kwargs):
         """Helper function to aggregate files
 
         Given a list of input files for a bioinformatics application,
@@ -144,11 +144,14 @@ def aggregate_factory(module):
 
         Args:
           infiles (list): list of input file names
-          regex (str): regex pattern to parse file
           parser (func): bioodo parser function to use in case the generic
                          parsing fails
           outfile (str): outfile name. Compression will be inferred from suffix
+          regex (str): regex pattern to parse file
           kwargs (dict): keyword arguments
+
+        See also arguments to :func:`pandas.annotate_by_uri` for more
+        annotation options.
 
         Returns:
           Aggregated data frame or None if outfile given
@@ -169,10 +172,10 @@ def aggregate_factory(module):
         for f in infiles:
             logger.debug("loading {}".format(f))
             if parser:
-                df = odo.odo(parser(f, **kwargs), DataFrame)
+                df = odo.odo(parser(f, **kwargs), DataFrame, regex=regex)
             else:
                 try:
-                    df = odo.odo(f, DataFrame, **kwargs)
+                    df = odo.odo(f, DataFrame, regex=regex, **kwargs)
                 except NotImplementedError:
                     logger.error("Unable to parse uri {uri};".format(uri=f) +
                                  " check that file extension is handled by" +
@@ -180,15 +183,6 @@ def aggregate_factory(module):
                                  " bioodo module;" +
                                  " else configure extension in .bioodo.yaml")
                     raise
-            if regex:
-                logger.debug("Searching uri {} with regex {}".format(f, regex))
-                m = re.search(regex, f)
-                if m:
-                    logger.debug("adding columns {}".format(
-                        ",".join(["{}={}".format(k, v)
-                                  for k, v in m.groupdict().items()])))
-                    for k, v in m.groupdict().items():
-                        df[k] = v
             dflist.append(df)
         df = pd.concat(dflist)
         if outfile:
