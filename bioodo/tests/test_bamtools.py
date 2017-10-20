@@ -19,6 +19,7 @@ def test_bamtools(bamtools_data):
 
 def test_bamtools_aggregate(bamtools_aggregate_data):
     module, command, version, end, pdir = bamtools_aggregate_data
-    df = bamtools.aggregate([str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
-                            regex=".*/(?P<repeat>[0-9]+)/medium.stats")
+    df = bamtools.aggregate(
+        [str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
+        regex=".*/(?P<repeat>[0-9]+)/medium.stats")
     assert sorted(list(df["repeat"].unique())) == ['0', '1']

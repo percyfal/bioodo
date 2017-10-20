@@ -26,7 +26,8 @@ def fixture_factory(fixture_list, unique=False, **kwargs):
             fixture_list[i] = tuple(y)
 
     @pytest.fixture(scope="session", autouse=False, params=fixture_list,
-                    ids=["{} {}:{}/{}".format(x[0], x[1], x[2], x[3]) for x in fixture_list])
+                    ids=["{} {}:{}/{}".format(x[0], x[1], x[2], x[3])
+                         for x in fixture_list])
     def bioodo_fixture(request, tmpdir_factory):
         # NB: fmtdict is a dictionary, potentially pointing to
         # multiple output files
@@ -36,7 +37,8 @@ def fixture_factory(fixture_list, unique=False, **kwargs):
         # applications/module directory
         outputs = [fmt.format(**params) for fmt in fmtdict.values()]
         # Add applications/module prefix
-        sources = [os.path.join("applications", module, output) for output in outputs]
+        sources = [os.path.join("applications", module, output)
+                   for output in outputs]
         # Extract source basenames
         dests = [os.path.basename(src) for src in sources]
         # Generate a unique test output directory name
@@ -72,16 +74,19 @@ def aggregation_fixture_factory(fixture_list, repeat, **kwargs):
     @pytest.fixture(scope=kwargs.get("scope", "session"),
                     autouse=kwargs.get("autouse", False),
                     params=fixture_list,
-                    ids=["{} {}:{}/{}".format(x[0], x[1], x[2], x[3]) for x in fixture_list])
+                    ids=["{} {}:{}/{}".format(x[0], x[1], x[2], x[3])
+                         for x in fixture_list])
     def bioodo_aggregation_fixture(request, tmpdir_factory):
         # NB: fmtdict is a dictionary, potentially pointing to
         # multiple output files
         module, command, version, end, fmtdict = request.param
         params = {'version': version, 'end': end}
         keys = kwargs.get("keys", fmtdict.keys())
-        outputs = [fmtdict[k].format(**params) for k in keys] * len(range(repeat))
+        outputs = [fmtdict[k].format(**params)
+                   for k in keys] * len(range(repeat))
         # Add applications/module prefix
-        sources = [os.path.join("applications", module, output) for output in outputs]
+        sources = [os.path.join("applications", module, output)
+                   for output in outputs]
         # Extract source basenames
         dests = [os.path.basename(src) for src in outputs]
         # Generate a unique test output directory

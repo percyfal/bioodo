@@ -21,12 +21,19 @@ def resource_bamtools_stats(uri, **kwargs):
     Returns:
       DataFrame: DataFrame for requested section
     """
-    with open(uri) as fh:
-        data = [
-            [y for y in re.sub("\s+(\d+)", "\t\\1",
-                               re.sub("(^\t|:|'|\s+$)", "",
-                                      re.sub("Read (\d+)", "Read_\\1", x))).split("\t")]
-            for x in fh.readlines()[5:] if not x.startswith("\n")]
+    def _parse():
+        data = []
+        with open(uri) as fh:
+            for x in fh.readlines()[5:]:
+                if x.startswith("\n"):
+                    continue
+                x = re.sub("Read (\d+)", "Read_\\1", x)
+                x = re.sub("(^\t|:|'|\s+$)", "", x)
+                x = re.sub("\s+(\d+)", "\t\\1", x).split("\t")
+                data.append(x)
+        return data
+
+    data = _parse()
     df = DataFrame.from_records(data)
     df.columns = ["statistic", "value", "percent"]
     df['percent'].replace("[\(\)%]", "", inplace=True, regex=True)

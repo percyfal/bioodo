@@ -6,7 +6,8 @@ import pytest
 
 
 FILES = ["applications/picard/2.9.0/pe/medium.align_metrics"]
-data = factories.fileset(src=FILES, dst=["medium.align_metrics.foo"], fdir="data")
+data = factories.fileset(src=FILES, dst=["medium.align_metrics.foo"],
+                         fdir="data")
 
 
 def test_parse_uri_failure(data):
