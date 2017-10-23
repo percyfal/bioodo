@@ -81,7 +81,7 @@ def annotate_by_uri(func):
         else:
             annotation_fn = kwargs.get('annotation_fn', default_annotation_fn)
         annotation_fn(df, uri, **kwargs)
-        return func
+        return df
     return wrap
 
 
