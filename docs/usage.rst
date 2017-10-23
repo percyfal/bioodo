@@ -15,7 +15,7 @@ output log file:
     df = odo("/path/to/Log.final.out", DataFrame)
 
 odo parses the output file by seamlessly invoking the star resource
-function :func:`bioodo.star.resource_star_log` and returns a pandas
+function :meth:`bioodo.star.resource_star_log` and returns a pandas
 DataFrame object.
 
 Output files can also be aggregated with function
@@ -48,7 +48,19 @@ Here, an additional column `sample` will be added, in which matches to
 the regular expression pattern will be stored (`sample1` and `sample2`
 in this case).
 
-See the docstring for further examples.
+Finally, data can be pivoted on the fly to convert between wide and
+long format. For instance, the following code block will pivot the
+data frame to contain observations (sample) in rows and variables
+(statistic) in columns.
+
+.. code-block:: python
+
+   from bioodo import star, odo, DataFrame
+   df = odo("/path/to/sample1/Log.final.out", DataFrame,
+            regex=".*/(?P<sample>sample[0-9]+)/.*",
+	    index="sample", columns="stastic", value="value")
+
+See the docstrings for further examples.
 
 
 
@@ -56,7 +68,7 @@ Resource configuration
 -----------------------
 
 New backends are added to odo by applying a decorator
-`resource.register` to a function that parses output. The decorator
+:py:func:`resource.register` to a function that parses output. The decorator
 takes as a mandatory argument a regular expression pattern, and
 optionally a priority number that is used to resolve ambiguous
 matches:
@@ -71,9 +83,10 @@ matches:
 
 In bioodo, the regular expression patterns are actually loaded from
 the resource configuration file `bioodo/data/config.yaml` and accessed
-via a global config variable :any:`bioodo.__RESOURCE_CONFIG__`. The
-configuration consists of application sections and resource
-subsections under which pattern and priority are defined:
+via a global config variable
+:any:`bioodo.__init__.__RESOURCE_CONFIG__`. The configuration consists
+of application sections and resource subsections under which pattern
+and priority are defined:
 
 .. code-block:: yaml
 
