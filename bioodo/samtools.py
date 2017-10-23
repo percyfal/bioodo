@@ -27,6 +27,8 @@ COLUMNS = {
     'GCD': ['percent', 'unique', 'p10', 'p25', 'p50', 'p75', 'p90'],
 }
 
+IDXSTATS_COLUMNS = ["name", "length", "mapped", "unmapped"]
+
 
 @resource.register(config['stats']['pattern'],
                    priority=config['stats']['priority'])
@@ -70,6 +72,29 @@ def resource_samtools_stats(uri, key="SN", **kwargs):
         df = df.apply(pd.to_numeric, errors='ignore')
         df = df.set_index(df[COLUMNS[key][0]])
         del df[COLUMNS[key][0]]
+    return df
+
+
+@resource.register(config['idxstats']['pattern'],
+                   priority=config['idxstats']['priority'])
+@annotate_by_uri
+def resource_samtools_idxstats(uri, **kwargs):
+    """Parse samtools idxstats output file.
+
+    From the documentation:
+
+        The output is TAB-delimited with each line consisting of
+        reference sequence name, sequence length, # mapped reads and #
+        unmapped reads.
+
+    Args:
+      uri (str): filename
+
+    Returns:
+      DataFrame:
+
+    """
+    df = pd.read_table(uri, names=IDXSTATS_COLUMNS)
     return df
 
 

@@ -8,6 +8,9 @@ fixtures = application_fixtures(application="samtools")
 stat_fixtures = [x for x in fixtures if x[1] == "samtools_stats"]
 samtools_stats = utils.fixture_factory(stat_fixtures)
 
+idxstats_fixtures = [x for x in fixtures if x[1] == "samtools_idxstats"]
+samtools_idxstats = utils.fixture_factory(idxstats_fixtures)
+
 
 def test_basic_statistics(samtools_stats):
     _stats = {'1.2': {'se': 60037, 'pe': 120110},
@@ -38,3 +41,10 @@ def test_FFQ(samtools_stats):
     fn = str(pdir.join("medium.stats.txt"))
     df = odo(samtools.resource_samtools_stats(fn, key="FFQ"), DataFrame)
     assert (df.loc[1][33] == _ffq_stats[version][end])
+
+
+def test_idxstats(samtools_idxstats):
+    module, command, version, end, pdir = samtools_idxstats
+    fn = str(pdir.join("medium.idxstats.txt"))
+    df = odo(fn, DataFrame)
+    assert (df.loc[0][0] == "scaffold1")
