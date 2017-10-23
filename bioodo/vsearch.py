@@ -2,7 +2,7 @@
 import re
 import logging
 import pandas as pd
-from bioodo import resource, annotate_by_uri, DataFrame, utils
+from bioodo import resource, annotate_by_uri, pivot, DataFrame, utils
 import bioodo
 
 config = bioodo.__RESOURCE_CONFIG__['vsearch']
@@ -14,6 +14,7 @@ SECTION_NAMES = ["Read length distribution", "Q score distribution",
 
 @resource.register(config['stats']['pattern'],
                    priority=config['stats']['priority'])
+@pivot
 @annotate_by_uri
 def resource_vsearch_fastqc_stats(uri, key="Read length distribution",
                                   **kwargs):

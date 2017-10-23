@@ -2,7 +2,7 @@
 import logging
 import pandas as pd
 import bioodo
-from bioodo import resource, annotate_by_uri, DataFrame, utils
+from bioodo import resource, annotate_by_uri, pivot, DataFrame, utils
 
 logger = logging.getLogger(__name__)
 config = bioodo.__RESOURCE_CONFIG__['bcftools']
@@ -43,6 +43,7 @@ INDEX_COLUMN = {
 
 @resource.register(config['stats']['pattern'],
                    priority=config['stats']['priority'])
+@pivot
 @annotate_by_uri
 def resource_bcftools_stats(uri, key="SN", **kwargs):
     """Parse bcftools stats text output file.

@@ -1,7 +1,7 @@
 # Copyright (C) 2016 by Per Unneberg
 import logging
 import pandas as pd
-from bioodo import resource, annotate_by_uri, DataFrame, utils
+from bioodo import resource, annotate_by_uri, pivot, DataFrame, utils
 import bioodo
 
 logger = logging.getLogger(__name__)
@@ -32,6 +32,7 @@ IDXSTATS_COLUMNS = ["name", "length", "mapped", "unmapped"]
 
 @resource.register(config['stats']['pattern'],
                    priority=config['stats']['priority'])
+@pivot
 @annotate_by_uri
 def resource_samtools_stats(uri, key="SN", **kwargs):
     """Parse samtools stats text output file.

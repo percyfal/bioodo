@@ -1,13 +1,14 @@
 # Copyright (C) 2015 by Per Unneberg
 import pandas as pd
 import bioodo
-from bioodo import resource, annotate_by_uri, utils
+from bioodo import resource, annotate_by_uri, pivot, utils
 
 config = bioodo.__RESOURCE_CONFIG__['rpkmforgenes']
 
 
 @resource.register(config['rpkmforgenes']['pattern'],
                    priority=config['rpkmforgenes']['priority'])
+@pivot
 @annotate_by_uri
 def resource_rpkmforgenes(uri, **kwargs):
     with open(uri):

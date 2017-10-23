@@ -40,6 +40,7 @@ def resource_bamtools_stats(uri, **kwargs):
     df['percent'].replace("[\(\)%]", "", inplace=True, regex=True)
     df["percent"] = pd.to_numeric(df['percent'], errors="ignore")
     df["value"] = pd.to_numeric(df['value'], errors="ignore")
+    df.set_index("statistic", inplace=True, drop=False)
     return df
 
 

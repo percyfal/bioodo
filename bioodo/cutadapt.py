@@ -3,7 +3,7 @@ import re
 import pandas as pd
 import logging
 import bioodo
-from bioodo import resource, annotate_by_uri, DataFrame, utils
+from bioodo import resource, annotate_by_uri, pivot, DataFrame, utils
 
 logger = logging.getLogger(__name__)
 config = bioodo.__RESOURCE_CONFIG__['cutadapt']
@@ -26,6 +26,7 @@ def _split_x(x, delim=":"):
 # For now only return the summary section
 @resource.register(config['metrics']['pattern'],
                    priority=config['metrics']['priority'])
+@pivot
 @annotate_by_uri
 def resource_cutadapt_metrics(uri, **kwargs):
     with open(uri) as fh:

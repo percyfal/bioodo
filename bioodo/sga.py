@@ -2,7 +2,7 @@
 import re
 import logging
 import bioodo
-from bioodo import resource, annotate_by_uri, DataFrame, utils
+from bioodo import resource, annotate_by_uri, pivot, DataFrame, utils
 import pandas as pd
 
 logger = logging.getLogger(__name__)
@@ -11,6 +11,7 @@ config = bioodo.__RESOURCE_CONFIG__['sga']
 
 @resource.register(config['preprocess']['pattern'],
                    priority=config['preprocess']['priority'])
+@pivot
 @annotate_by_uri
 def resource_sga_preprocess(uri, **kwargs):
     """Parse sga preprocess log output file.
@@ -42,6 +43,7 @@ def resource_sga_preprocess(uri, **kwargs):
 
 @resource.register(config['filter']['pattern'],
                    priority=config['filter']['priority'])
+@pivot
 @annotate_by_uri
 def resource_sga_filter(uri, **kwargs):
     """Parse sga filter log output file.

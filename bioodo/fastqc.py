@@ -3,7 +3,7 @@ import re
 from os.path import join, basename
 import logging
 import bioodo
-from bioodo import resource, annotate_by_uri, DataFrame, utils
+from bioodo import resource, annotate_by_uri, pivot, DataFrame, utils
 
 
 logger = logging.getLogger(__name__)
@@ -22,6 +22,7 @@ SECTION_NAMES = ['Header', 'Basic_Statistics',
 
 @resource.register(config['fastqc']['pattern'],
                    priority=config['fastqc']['priority'])
+@pivot
 @annotate_by_uri
 def resource_fastqc_data(uri, key="Basic_Statistics", **kwargs):
     """Parse fastqc text output file.

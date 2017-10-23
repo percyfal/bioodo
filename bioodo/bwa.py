@@ -2,7 +2,7 @@
 import re
 import logging
 import bioodo
-from bioodo import resource, annotate_by_uri, DataFrame, utils
+from bioodo import resource, annotate_by_uri, pivot, DataFrame, utils
 import pandas as pd
 
 logger = logging.getLogger(__name__)
@@ -11,6 +11,7 @@ config = bioodo.__RESOURCE_CONFIG__['bwa']
 
 
 @resource.register(config['bwa_mem']['pattern'], config['bwa_mem']['priority'])
+@pivot
 @annotate_by_uri
 def resource_bwa_mem(uri, **kwargs):
     """Parse bwa mem log output file.
