@@ -9,6 +9,7 @@ History
 * Add multiple pattern to picard insert metrics (#15)
 * Add support for wide table output (#12)
 * Add regex annotation to annotate_by_uri (#13)
+* Add parser for samtools idxstats (#11)
 
 
 

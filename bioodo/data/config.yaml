@@ -98,6 +98,9 @@ samtools:
   stats:
     pattern: '.*samtools_stats.txt'
     priority: 30
+  idxstats:
+    pattern: '.*.idxstats.txt'
+    priority: 30
 sga:
   preprocess:
     pattern: '.*sga.preprocess.log'
