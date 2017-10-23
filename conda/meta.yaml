@@ -1,5 +1,5 @@
 {% set name = "bioodo" %}
-{% set version = "0.1.0a1" %}
+{% set version = "0.1.0-alpha.1" %}
 
 package:
   name: {{ name|lower }}
