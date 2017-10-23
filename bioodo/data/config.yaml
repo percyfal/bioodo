@@ -55,7 +55,7 @@ picard:
     pattern: '.*.align_metrics'
     priority: 30
   insert_metrics:
-    pattern: '.*.insert_size_metrics'
+    pattern: '.*.insert(_size|)_metrics'
     priority: 30
   hs_metrics:
     pattern: '.*.hs_metrics'
