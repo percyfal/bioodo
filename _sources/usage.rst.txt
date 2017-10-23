@@ -15,11 +15,52 @@ output log file:
     df = odo("/path/to/Log.final.out", DataFrame)
 
 odo parses the output file by seamlessly invoking the star resource
-function :func:`bioodo.star.resource_star_log` and returns a pandas
+function :meth:`bioodo.star.resource_star_log` and returns a pandas
 DataFrame object.
 
 Output files can also be aggregated with function
-:func:`bioodo.utils.aggregate`. See the docstring for examples.
+:func:`bioodo.utils.aggregate`:
+
+.. code-block:: python
+
+   from bioodo import star, odo, DataFrame
+   df = star.aggregate(['/path/to/sample1/Log.final.out',
+		        '/path/to/sample2/Log.final.out'],
+			annotate=True)
+
+Here, two output files will be aggregated. Data provenance is tracked
+through the `annotate` option, which will cause the aggregation
+function to add an additional column named `uri` in which the uris
+themselves will be stored (`/path/to/sample1/Log.final.out` and
+`/path/to/sample2/Log.final.out` in this case).
+
+Alternatively, data provenance can be tracked via a custom parsing of
+the uri by passing a regex to the `regex` option:
+
+.. code-block:: python
+
+   from bioodo import star, odo, DataFrame
+   df = star.aggregate(['/path/to/sample1/Log.final.out',
+		        '/path/to/sample2/Log.final.out'],
+			regex=".*/(?P<sample>sample[0-9]+/Log.final.out)")
+
+Here, an additional column `sample` will be added, in which matches to
+the regular expression pattern will be stored (`sample1` and `sample2`
+in this case).
+
+Finally, data can be pivoted on the fly to convert between wide and
+long format. For instance, the following code block will pivot the
+data frame to contain observations (sample) in rows and variables
+(statistic) in columns.
+
+.. code-block:: python
+
+   from bioodo import star, odo, DataFrame
+   df = odo("/path/to/sample1/Log.final.out", DataFrame,
+            regex=".*/(?P<sample>sample[0-9]+)/.*",
+	    index="sample", columns="stastic", value="value")
+
+See the docstrings for further examples.
 
 
 
@@ -27,7 +68,7 @@ Resource configuration
 -----------------------
 
 New backends are added to odo by applying a decorator
-`resource.register` to a function that parses output. The decorator
+:py:func:`resource.register` to a function that parses output. The decorator
 takes as a mandatory argument a regular expression pattern, and
 optionally a priority number that is used to resolve ambiguous
 matches:
@@ -42,9 +83,10 @@ matches:
 
 In bioodo, the regular expression patterns are actually loaded from
 the resource configuration file `bioodo/data/config.yaml` and accessed
-via a global config variable :any:`bioodo.__RESOURCE_CONFIG__`. The
-configuration consists of application sections and resource
-subsections under which pattern and priority are defined:
+via a global config variable
+:any:`bioodo.__init__.__RESOURCE_CONFIG__`. The configuration consists
+of application sections and resource subsections under which pattern
+and priority are defined:
 
 .. code-block:: yaml
 

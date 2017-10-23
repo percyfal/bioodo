@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; bioodo 0.1.0-alpha.0 documentation</title>
+  <title>Usage &mdash; bioodo 0.1.0+1.g2e24a1f documentation</title>
   
 
+  
+  
   
   
 
@@ -33,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="bioodo 0.1.0-alpha.0 documentation" href="index.html"/>
+    <link rel="top" title="bioodo 0.1.0+1.g2e24a1f documentation" href="index.html"/>
         <link rel="next" title="&lt;no title&gt;" href="authors.html"/>
         <link rel="prev" title="bioodo - odo parser library for bioinformatics" href="index.html"/> 
 
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                0.1.0-alpha.0
+                0.1.0+1.g2e24a1f
               </div>
             
           
@@ -84,7 +87,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#resource-configuration">Resource configuration</a></li>
 </ul>
@@ -102,8 +108,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">bioodo</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bioodo</a>
+        
       </nav>
 
 
@@ -112,23 +120,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Usage</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -145,14 +170,47 @@ output log file:</p>
 </pre></div>
 </div>
 <p>odo parses the output file by seamlessly invoking the star resource
-function <code class="xref py py-func docutils literal"><span class="pre">bioodo.star.resource_star_log()</span></code> and returns a pandas
+function <a class="reference internal" href="bioodo.html#bioodo.star.resource_star_log" title="bioodo.star.resource_star_log"><code class="xref py py-meth docutils literal"><span class="pre">bioodo.star.resource_star_log()</span></code></a> and returns a pandas
 DataFrame object.</p>
 <p>Output files can also be aggregated with function
-<a class="reference internal" href="bioodo.html#bioodo.utils.aggregate" title="bioodo.utils.aggregate"><code class="xref py py-func docutils literal"><span class="pre">bioodo.utils.aggregate()</span></code></a>. See the docstring for examples.</p>
+<code class="xref py py-func docutils literal"><span class="pre">bioodo.utils.aggregate()</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bioodo</span> <span class="kn">import</span> <span class="n">star</span><span class="p">,</span> <span class="n">odo</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">star</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="s1">&#39;/path/to/sample1/Log.final.out&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;/path/to/sample2/Log.final.out&#39;</span><span class="p">],</span>
+                     <span class="n">annotate</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, two output files will be aggregated. Data provenance is tracked
+through the <cite>annotate</cite> option, which will cause the aggregation
+function to add an additional column named <cite>uri</cite> in which the uris
+themselves will be stored (<cite>/path/to/sample1/Log.final.out</cite> and
+<cite>/path/to/sample2/Log.final.out</cite> in this case).</p>
+<p>Alternatively, data provenance can be tracked via a custom parsing of
+the uri by passing a regex to the <cite>regex</cite> option:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bioodo</span> <span class="kn">import</span> <span class="n">star</span><span class="p">,</span> <span class="n">odo</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">star</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="s1">&#39;/path/to/sample1/Log.final.out&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;/path/to/sample2/Log.final.out&#39;</span><span class="p">],</span>
+                     <span class="n">regex</span><span class="o">=</span><span class="s2">&quot;.*/(?P&lt;sample&gt;sample[0-9]+/Log.final.out)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, an additional column <cite>sample</cite> will be added, in which matches to
+the regular expression pattern will be stored (<cite>sample1</cite> and <cite>sample2</cite>
+in this case).</p>
+<p>Finally, data can be pivoted on the fly to convert between wide and
+long format. For instance, the following code block will pivot the
+data frame to contain observations (sample) in rows and variables
+(statistic) in columns.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bioodo</span> <span class="kn">import</span> <span class="n">star</span><span class="p">,</span> <span class="n">odo</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">odo</span><span class="p">(</span><span class="s2">&quot;/path/to/sample1/Log.final.out&quot;</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">,</span>
+         <span class="n">regex</span><span class="o">=</span><span class="s2">&quot;.*/(?P&lt;sample&gt;sample[0-9]+)/.*&quot;</span><span class="p">,</span>
+         <span class="n">index</span><span class="o">=</span><span class="s2">&quot;sample&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;stastic&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See the docstrings for further examples.</p>
 <div class="section" id="resource-configuration">
 <h2>Resource configuration<a class="headerlink" href="#resource-configuration" title="Permalink to this headline">¶</a></h2>
 <p>New backends are added to odo by applying a decorator
-<cite>resource.register</cite> to a function that parses output. The decorator
+<code class="xref py py-func docutils literal"><span class="pre">resource.register()</span></code> to a function that parses output. The decorator
 takes as a mandatory argument a regular expression pattern, and
 optionally a priority number that is used to resolve ambiguous
 matches:</p>
@@ -164,9 +222,10 @@ matches:</p>
 </div>
 <p>In bioodo, the regular expression patterns are actually loaded from
 the resource configuration file <cite>bioodo/data/config.yaml</cite> and accessed
-via a global config variable <code class="xref any docutils literal"><span class="pre">bioodo.__RESOURCE_CONFIG__</span></code>. The
-configuration consists of application sections and resource
-subsections under which pattern and priority are defined:</p>
+via a global config variable
+<code class="xref any docutils literal"><span class="pre">bioodo.__init__.__RESOURCE_CONFIG__</span></code>. The configuration consists
+of application sections and resource subsections under which pattern
+and priority are defined:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">application</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">resource</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">pattern</span><span class="p p-Indicator">:</span> <span class="s">&#39;.*foo|.*bar&#39;</span>
@@ -184,15 +243,18 @@ convention the user has in mind.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="authors.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="authors.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="bioodo - odo parser library for bioinformatics" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="bioodo - odo parser library for bioinformatics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -223,16 +285,17 @@ convention the user has in mind.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1.0-alpha.0',
+            VERSION:'0.1.0+1.g2e24a1f',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

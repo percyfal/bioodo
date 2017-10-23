@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bioodo package &mdash; bioodo 0.1.0-alpha.0 documentation</title>
+  <title>bioodo package &mdash; bioodo 0.1.0+1.g2e24a1f documentation</title>
   
 
+  
+  
   
   
 
@@ -33,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="bioodo 0.1.0-alpha.0 documentation" href="index.html"/>
+    <link rel="top" title="bioodo 0.1.0+1.g2e24a1f documentation" href="index.html"/>
         <link rel="up" title="bioodo" href="modules.html"/>
         <link rel="prev" title="bioodo" href="modules.html"/> 
 
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                0.1.0-alpha.0
+                0.1.0+1.g2e24a1f
               </div>
             
           
@@ -84,7 +87,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">bioodo</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">bioodo package</a><ul>
@@ -126,8 +132,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">bioodo</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bioodo</a>
+        
       </nav>
 
 
@@ -136,25 +144,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
           <li><a href="modules.html">bioodo</a> &raquo;</li>
-      
-    <li>bioodo package</li>
+        
+      <li>bioodo package</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/bioodo.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -168,20 +193,18 @@
 <div class="section" id="module-bioodo.bamtools">
 <span id="bioodo-bamtools-module"></span><h2>bioodo.bamtools module<a class="headerlink" href="#module-bioodo.bamtools" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.bamtools.aggregate">
-<code class="descclassname">bioodo.bamtools.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.bamtools.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual bamtools reports to one output file</p>
+<dt id="bioodo.bamtools.resource_bamtools_stats">
+<code class="descclassname">bioodo.bamtools.</code><code class="descname">resource_bamtools_stats</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.bamtools.resource_bamtools_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse bamtools stats text output file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame for requested section</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
 </tr>
 </tbody>
 </table>
@@ -191,19 +214,23 @@
 <div class="section" id="module-bioodo.bcftools">
 <span id="bioodo-bcftools-module"></span><h2>bioodo.bcftools module<a class="headerlink" href="#module-bioodo.bcftools" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.bcftools.aggregate">
-<code class="descclassname">bioodo.bcftools.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.bcftools.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual bcftools reports to one output file</p>
+<dt id="bioodo.bcftools.resource_bcftools_stats">
+<code class="descclassname">bioodo.bcftools.</code><code class="descname">resource_bcftools_stats</code><span class="sig-paren">(</span><em>uri</em>, <em>key='SN'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.bcftools.resource_bcftools_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse bcftools stats text output file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</li>
+<li><strong>key</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – result section to return</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">DataFrame for requested section</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">DataFrame</p>
 </td>
 </tr>
 </tbody>
@@ -214,20 +241,18 @@
 <div class="section" id="module-bioodo.bwa">
 <span id="bioodo-bwa-module"></span><h2>bioodo.bwa module<a class="headerlink" href="#module-bioodo.bwa" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.bwa.aggregate">
-<code class="descclassname">bioodo.bwa.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.bwa.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual bwa reports to one output file</p>
+<dt id="bioodo.bwa.resource_bwa_mem">
+<code class="descclassname">bioodo.bwa.</code><code class="descname">resource_bwa_mem</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.bwa.resource_bwa_mem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse bwa mem log output file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame for requested section</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
 </tr>
 </tbody>
 </table>
@@ -248,8 +273,8 @@ for details.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>config</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; dictionary to update</li>
-<li><strong>overwrite_config</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; dictionary whose items will overwrite
+<li><strong>config</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – dictionary to update</li>
+<li><strong>overwrite_config</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – dictionary whose items will overwrite
 those in config</li>
 </ul>
 </td>
@@ -262,42 +287,31 @@ those in config</li>
 <div class="section" id="module-bioodo.cutadapt">
 <span id="bioodo-cutadapt-module"></span><h2>bioodo.cutadapt module<a class="headerlink" href="#module-bioodo.cutadapt" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.cutadapt.aggregate">
-<code class="descclassname">bioodo.cutadapt.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.cutadapt.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual cutadapt reports to one output file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dt id="bioodo.cutadapt.resource_cutadapt_metrics">
+<code class="descclassname">bioodo.cutadapt.</code><code class="descname">resource_cutadapt_metrics</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.cutadapt.resource_cutadapt_metrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-bioodo.fastqc">
 <span id="bioodo-fastqc-module"></span><h2>bioodo.fastqc module<a class="headerlink" href="#module-bioodo.fastqc" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.fastqc.aggregate">
-<code class="descclassname">bioodo.fastqc.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.fastqc.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual fastqc reports to one output file</p>
+<dt id="bioodo.fastqc.resource_fastqc_data">
+<code class="descclassname">bioodo.fastqc.</code><code class="descname">resource_fastqc_data</code><span class="sig-paren">(</span><em>uri</em>, <em>key='Basic_Statistics'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.fastqc.resource_fastqc_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse fastqc text output file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</li>
+<li><strong>key</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – result section to return</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">DataFrame for requested section</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">DataFrame</p>
 </td>
 </tr>
 </tbody>
@@ -308,20 +322,180 @@ those in config</li>
 <div class="section" id="module-bioodo.mapdamage">
 <span id="bioodo-mapdamage-module"></span><h2>bioodo.mapdamage module<a class="headerlink" href="#module-bioodo.mapdamage" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.mapdamage.aggregate">
-<code class="descclassname">bioodo.mapdamage.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.mapdamage.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual mapdamage reports to one output file</p>
+<dt id="bioodo.mapdamage.resource_mapdamage_3pGtoA_freq">
+<code class="descclassname">bioodo.mapdamage.</code><code class="descname">resource_mapdamage_3pGtoA_freq</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.mapdamage.resource_mapdamage_3pGtoA_freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse mapdamage 3pGtoA_freq.txt</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame representation of 3pGtoA</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.mapdamage.resource_mapdamage_5pCtoT_freq">
+<code class="descclassname">bioodo.mapdamage.</code><code class="descname">resource_mapdamage_5pCtoT_freq</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.mapdamage.resource_mapdamage_5pCtoT_freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse mapdamage 5pCtoT_freq.txt</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame representation of 5pCtoT</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.mapdamage.resource_mapdamage_dnacomp">
+<code class="descclassname">bioodo.mapdamage.</code><code class="descname">resource_mapdamage_dnacomp</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.mapdamage.resource_mapdamage_dnacomp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse mapdamage dnacomp.txt</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame representation of dnacomp</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.mapdamage.resource_mapdamage_dnacomp_genome">
+<code class="descclassname">bioodo.mapdamage.</code><code class="descname">resource_mapdamage_dnacomp_genome</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.mapdamage.resource_mapdamage_dnacomp_genome" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse mapdamage dnacomp_genome.csv</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame representation of dnacomp_genome</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.mapdamage.resource_mapdamage_lgdistribution">
+<code class="descclassname">bioodo.mapdamage.</code><code class="descname">resource_mapdamage_lgdistribution</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.mapdamage.resource_mapdamage_lgdistribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse mapdamage lgdistribution.txt</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame representation of lgdistribution</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.mapdamage.resource_mapdamage_mcmc_correct_prob_freq">
+<code class="descclassname">bioodo.mapdamage.</code><code class="descname">resource_mapdamage_mcmc_correct_prob_freq</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.mapdamage.resource_mapdamage_mcmc_correct_prob_freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse mapdamage Stats_out_MCMC_correct_prob.csv</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame representation of mcmc correct prob.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.mapdamage.resource_mapdamage_mcmc_iter">
+<code class="descclassname">bioodo.mapdamage.</code><code class="descname">resource_mapdamage_mcmc_iter</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.mapdamage.resource_mapdamage_mcmc_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse mapdamage Stats_out_MCMC_iter.csv</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame representation of mcmc iter.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.mapdamage.resource_mapdamage_mcmc_iter_summ_stat">
+<code class="descclassname">bioodo.mapdamage.</code><code class="descname">resource_mapdamage_mcmc_iter_summ_stat</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.mapdamage.resource_mapdamage_mcmc_iter_summ_stat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse mapdamage Stats_out_MCMC_iter_summ_stat.csv</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame representation of mcmc iter summ stat.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.mapdamage.resource_mapdamage_misincorporation">
+<code class="descclassname">bioodo.mapdamage.</code><code class="descname">resource_mapdamage_misincorporation</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.mapdamage.resource_mapdamage_misincorporation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse mapdamage misincorporation.txt</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame representation of misincorporation</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.mapdamage.resource_mapdamage_runtime">
+<code class="descclassname">bioodo.mapdamage.</code><code class="descname">resource_mapdamage_runtime</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.mapdamage.resource_mapdamage_runtime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse mapdamage runtime log.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame representation of runtime log</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
 </tr>
 </tbody>
 </table>
@@ -333,30 +507,160 @@ those in config</li>
 <dl class="function">
 <dt id="bioodo.pandas.annotate_by_uri">
 <code class="descclassname">bioodo.pandas.</code><code class="descname">annotate_by_uri</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.pandas.annotate_by_uri" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Decorator function annotate_by_uri.</p>
+<p>Wrap function with wrapper that will optionally add an annotation
+to the data frame based on the uri. This can be particularly
+useful when merging several files and the data provenance needs to
+be tracked.</p>
+<p class="rubric">Example</p>
+<p>The following example parses a qualimap output file and
+annotates the resulting data frame with the uri:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bioodo</span> <span class="kn">import</span> <span class="n">qualimap</span><span class="p">,</span> <span class="n">odo</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">odo</span><span class="p">(</span><span class="s2">&quot;Sample1/genome_results.txt&quot;</span><span class="p">,</span> <span class="n">annotate</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The data frame will contain an extra column named “uri” with the
+value “Sample1/genome_results.txt”.</p>
+<p>Alternatively, we can use a regular expression to parse the uri:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bioodo</span> <span class="kn">import</span> <span class="n">qualimap</span><span class="p">,</span> <span class="n">odo</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">odo</span><span class="p">(</span><span class="s2">&quot;Sample1/genome_results.txt&quot;</span><span class="p">,</span>
+         <span class="n">regex</span><span class="o">=</span><span class="s2">&quot;(?P&lt;sample&gt;Sample[0-9]+)/(?P&lt;file&gt;.*)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, the data frame will contain two extra columns, “sample”
+with value “Sample1”, and “file” with value “genome_results.txt”.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>annotate</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – whether or not to annotate data frame</li>
+<li><strong>annotation_fn</strong> (<em>function</em>) – use custom function to annotate data frame</li>
+<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – use regular expression to annotate data frame</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="bioodo.pandas.append_dataframe_to_dataframe">
 <code class="descclassname">bioodo.pandas.</code><code class="descname">append_dataframe_to_dataframe</code><span class="sig-paren">(</span><em>tgt</em>, <em>src</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.pandas.append_dataframe_to_dataframe" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-<div class="section" id="module-bioodo.picard">
-<span id="bioodo-picard-module"></span><h2>bioodo.picard module<a class="headerlink" href="#module-bioodo.picard" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.picard.aggregate">
-<code class="descclassname">bioodo.picard.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.picard.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual picard reports to one output file</p>
+<dt id="bioodo.pandas.pivot">
+<code class="descclassname">bioodo.pandas.</code><code class="descname">pivot</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.pandas.pivot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator function pivot.</p>
+<p>Wrap function with wrapper that will pivot a data frame to wide
+format.</p>
+<p class="rubric">Example</p>
+<p>The following example parses a qualimap output file and
+annotates the resulting data frame with a regex, at the same
+time pivoting the data frame so that the sample column is used
+to construct the new index.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bioodo</span> <span class="kn">import</span> <span class="n">qualimap</span><span class="p">,</span> <span class="n">odo</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">odo</span><span class="p">(</span><span class="s2">&quot;Sample1/genome_results.txt&quot;</span><span class="p">,</span>
+         <span class="n">regex</span><span class="o">==</span><span class="s2">&quot;(?P&lt;sample&gt;Sample[0-9]+)/(?P&lt;file&gt;.*)&quot;</span><span class="p">,</span>
+         <span class="n">index</span><span class="o">=</span><span class="s2">&quot;sample&quot;</span><span class="p">,</span>
+         <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;statistic&quot;</span><span class="p">,</span>
+         <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The arguments are identical to those in
+<a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.pivot.html#pandas.DataFrame.pivot" title="(in pandas v0.20.3)"><code class="xref py py-meth docutils literal"><span class="pre">pandas.DataFrame.pivot()</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
+<li><strong>index</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Column name to use to make new frame’s index. If
+None, uses existing index.</li>
+<li><strong>columns</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Column name to use to make new frame’s columns</li>
+<li><strong>values</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – string or list. Column name to use for
+populating new frame’s values. If not
+specified, all remaining columns will be
+used and the result will have hierarchically
+indexed columns</li>
 </ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bioodo.picard">
+<span id="bioodo-picard-module"></span><h2>bioodo.picard module<a class="headerlink" href="#module-bioodo.picard" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="bioodo.picard.resource_align_metrics">
+<code class="descclassname">bioodo.picard.</code><code class="descname">resource_align_metrics</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.picard.resource_align_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse picard AlignmentSummaryMetrics text output file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.picard.resource_dup_metrics">
+<code class="descclassname">bioodo.picard.</code><code class="descname">resource_dup_metrics</code><span class="sig-paren">(</span><em>uri</em>, <em>key='metrics'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.picard.resource_dup_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse picard DuplicationMetrics text output file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</li>
+<li><strong>key</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – result section to return (hist or metrics)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">DataFrame for requested section</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.picard.resource_hs_metrics">
+<code class="descclassname">bioodo.picard.</code><code class="descname">resource_hs_metrics</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.picard.resource_hs_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse picard HybridSelectionMetrics text output file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.picard.resource_insert_metrics">
+<code class="descclassname">bioodo.picard.</code><code class="descname">resource_insert_metrics</code><span class="sig-paren">(</span><em>uri</em>, <em>key='metrics'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.picard.resource_insert_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse picard InsertSummaryMetrics text output file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</li>
+<li><strong>key</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – result section to return (hist or metrics)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">DataFrame for requested section</p>
 </td>
 </tr>
 </tbody>
@@ -367,71 +671,103 @@ those in config</li>
 <div class="section" id="module-bioodo.qualimap">
 <span id="bioodo-qualimap-module"></span><h2>bioodo.qualimap module<a class="headerlink" href="#module-bioodo.qualimap" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.qualimap.aggregate">
-<code class="descclassname">bioodo.qualimap.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.qualimap.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual qualimap reports to one output file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dt id="bioodo.qualimap.resource_genome_results">
+<code class="descclassname">bioodo.qualimap.</code><code class="descname">resource_genome_results</code><span class="sig-paren">(</span><em>uri</em>, <em>key='Globals'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.qualimap.resource_genome_results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bioodo.qualimap.resource_read_data_frame">
+<code class="descclassname">bioodo.qualimap.</code><code class="descname">resource_read_data_frame</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.qualimap.resource_read_data_frame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-bioodo.rpkmforgenes">
 <span id="bioodo-rpkmforgenes-module"></span><h2>bioodo.rpkmforgenes module<a class="headerlink" href="#module-bioodo.rpkmforgenes" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="bioodo.rpkmforgenes.resource_rpkmforgenes">
+<code class="descclassname">bioodo.rpkmforgenes.</code><code class="descname">resource_rpkmforgenes</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.rpkmforgenes.resource_rpkmforgenes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-bioodo.rsem">
 <span id="bioodo-rsem-module"></span><h2>bioodo.rsem module<a class="headerlink" href="#module-bioodo.rsem" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="bioodo.rsem.resource_genes_results">
+<code class="descclassname">bioodo.rsem.</code><code class="descname">resource_genes_results</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.rsem.resource_genes_results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bioodo.rsem.resource_isoforms_results">
+<code class="descclassname">bioodo.rsem.</code><code class="descname">resource_isoforms_results</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.rsem.resource_isoforms_results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-bioodo.rseqc">
 <span id="bioodo-rseqc-module"></span><h2>bioodo.rseqc module<a class="headerlink" href="#module-bioodo.rseqc" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.rseqc.aggregate">
-<code class="descclassname">bioodo.rseqc.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.rseqc.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual rseqc reports to one output file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dt id="bioodo.rseqc.resource_clipping_profile">
+<code class="descclassname">bioodo.rseqc.</code><code class="descname">resource_clipping_profile</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.rseqc.resource_clipping_profile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bioodo.rseqc.resource_data_frame">
+<code class="descclassname">bioodo.rseqc.</code><code class="descname">resource_data_frame</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.rseqc.resource_data_frame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bioodo.rseqc.resource_read_distribution">
+<code class="descclassname">bioodo.rseqc.</code><code class="descname">resource_read_distribution</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.rseqc.resource_read_distribution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bioodo.rseqc.resource_xls">
+<code class="descclassname">bioodo.rseqc.</code><code class="descname">resource_xls</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.rseqc.resource_xls" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-bioodo.samtools">
 <span id="bioodo-samtools-module"></span><h2>bioodo.samtools module<a class="headerlink" href="#module-bioodo.samtools" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.samtools.aggregate">
-<code class="descclassname">bioodo.samtools.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.samtools.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual samtools reports to one output file</p>
+<dt id="bioodo.samtools.resource_samtools_idxstats">
+<code class="descclassname">bioodo.samtools.</code><code class="descname">resource_samtools_idxstats</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.samtools.resource_samtools_idxstats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse samtools idxstats output file.</p>
+<p>From the documentation:</p>
+<blockquote>
+<div>The output is TAB-delimited with each line consisting of
+reference sequence name, sequence length, # mapped reads and #
+unmapped reads.</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.samtools.resource_samtools_stats">
+<code class="descclassname">bioodo.samtools.</code><code class="descname">resource_samtools_stats</code><span class="sig-paren">(</span><em>uri</em>, <em>key='SN'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.samtools.resource_samtools_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse samtools stats text output file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</li>
+<li><strong>key</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – result section to return</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">DataFrame for requested section</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">DataFrame</p>
 </td>
 </tr>
 </tbody>
@@ -445,20 +781,36 @@ those in config</li>
 <div class="section" id="module-bioodo.sga">
 <span id="bioodo-sga-module"></span><h2>bioodo.sga module<a class="headerlink" href="#module-bioodo.sga" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.sga.aggregate">
-<code class="descclassname">bioodo.sga.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.sga.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual sga reports to one output file</p>
+<dt id="bioodo.sga.resource_sga_filter">
+<code class="descclassname">bioodo.sga.</code><code class="descname">resource_sga_filter</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.sga.resource_sga_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse sga filter log output file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame for requested section</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bioodo.sga.resource_sga_preprocess">
+<code class="descclassname">bioodo.sga.</code><code class="descname">resource_sga_preprocess</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.sga.resource_sga_preprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse sga preprocess log output file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DataFrame for requested section</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DataFrame</td>
 </tr>
 </tbody>
 </table>
@@ -468,46 +820,39 @@ those in config</li>
 <div class="section" id="module-bioodo.star">
 <span id="bioodo-star-module"></span><h2>bioodo.star module<a class="headerlink" href="#module-bioodo.star" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.star.aggregate">
-<code class="descclassname">bioodo.star.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.star.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual star reports to one output file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<dt id="bioodo.star.resource_star_log">
+<code class="descclassname">bioodo.star.</code><code class="descname">resource_star_log</code><span class="sig-paren">(</span><em>uri</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.star.resource_star_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse Star Log.final.out log file</p>
 </dd></dl>
 
 </div>
 <div class="section" id="module-bioodo.utils">
 <span id="bioodo-utils-module"></span><h2>bioodo.utils module<a class="headerlink" href="#module-bioodo.utils" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.utils.aggregate">
-<code class="descclassname">bioodo.utils.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>regex=None</em>, <em>parser=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.utils.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Helper function to aggregate files.</p>
+<dt id="bioodo.utils.aggregate_factory">
+<code class="descclassname">bioodo.utils.</code><code class="descname">aggregate_factory</code><span class="sig-paren">(</span><em>module</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.utils.aggregate_factory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory function to generate aggregation function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>module</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – module name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">function</td>
+</tr>
+</tbody>
+</table>
 <p>Given a list of input files for a bioinformatics application,
 seamlessly apply odo to each input file and concatenate the
 results. Additional file-based information, such as sample names,
 can be added on the fly by supplying a regular expression with
 group names that parses the file names. The regular expression
 group name will be added to the data frame.</p>
-<p>Note that the function is not directly called from
-<a class="reference internal" href="#module-bioodo.utils" title="bioodo.utils"><code class="xref py py-mod docutils literal"><span class="pre">bioodo.utils</span></code></a> but rather from one of the application
-modules, as the following example shows.</p>
 <p class="rubric">Examples</p>
-<p>The following example uses <a class="reference internal" href="#bioodo.qualimap.aggregate" title="bioodo.qualimap.aggregate"><code class="xref py py-func docutils literal"><span class="pre">bioodo.qualimap.aggregate()</span></code></a> to
+<p>The following example uses <code class="xref py py-func docutils literal"><span class="pre">bioodo.qualimap.aggregate()</span></code> to
 parse two qualimap output files, extract sample names via the
 regular expression, and concatenate the results together with an
-additional column named &#8220;sample&#8221;.</p>
+additional column named “sample”.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bioodo</span> <span class="kn">import</span> <span class="n">qualimap</span>
 <span class="n">qualimap_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Sample1/genome_results.txt&quot;</span><span class="p">,</span>
                   <span class="s2">&quot;Sample2/genome_results.txt&quot;</span><span class="p">]</span>
@@ -520,15 +865,16 @@ additional column named &#8220;sample&#8221;.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input file names</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regex pattern to parse file</li>
-<li><strong>parser</strong> (<em>func</em>) &#8211; bioodo parser function to use in case the generic
+<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – list of input file names</li>
+<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – regex pattern to parse file</li>
+<li><strong>parser</strong> (<em>func</em>) – bioodo parser function to use in case the generic
 parsing fails</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
+<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – outfile name. Compression will be inferred from suffix</li>
+<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – keyword arguments</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Aggregated data frame</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Aggregated data frame or None if outfile given</p>
 </td>
 </tr>
 </tbody>
@@ -545,11 +891,12 @@ parsing fails</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; file name</li>
-<li><strong>parser</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/re.html#module-re" title="(in Python v3.7)"><em>re</em></a>) &#8211; regexp object to parse input file name with. Metadata information to parse is stored in file name</li>
-<li><strong>groupnames</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of parser group names to use. For each</li>
-<li><strong>&lt;name&gt;</strong><strong>, </strong><strong>the parser should have a corresponding</strong> (<em>name</em>) &#8211; </li>
-<li><strong>expression</strong> &#8211; </li>
+<li><strong>infile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – file name</li>
+<li><strong>parser</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/re.html#module-re" title="(in Python v3.7)"><em>re</em></a>) – regexp object to parse input file name with.
+Metadata information to parse is stored in file name</li>
+<li><strong>groupnames</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – list of parser group names to use. For each
+name &lt;name&gt;, the parser should have a
+corresponding (?P&lt;name&gt;…) expression</li>
 </ul>
 </td>
 </tr>
@@ -566,8 +913,8 @@ parsing fails</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; string</li>
-<li><strong>strpfmt</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; strpfmt time string</li>
+<li><strong>x</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – string</li>
+<li><strong>strpfmt</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – strpfmt time string</li>
 </ul>
 </td>
 </tr>
@@ -590,19 +937,23 @@ parsing fails</li>
 <div class="section" id="module-bioodo.vsearch">
 <span id="bioodo-vsearch-module"></span><h2>bioodo.vsearch module<a class="headerlink" href="#module-bioodo.vsearch" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="bioodo.vsearch.aggregate">
-<code class="descclassname">bioodo.vsearch.</code><code class="descname">aggregate</code><span class="sig-paren">(</span><em>infiles</em>, <em>outfile=None</em>, <em>regex=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.vsearch.aggregate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aggregate individual vsearch reports to one output file</p>
+<dt id="bioodo.vsearch.resource_vsearch_fastqc_stats">
+<code class="descclassname">bioodo.vsearch.</code><code class="descname">resource_vsearch_fastqc_stats</code><span class="sig-paren">(</span><em>uri</em>, <em>key='Read length distribution'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bioodo.vsearch.resource_vsearch_fastqc_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse vsearch fastqc_stats text output file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>infiles</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) &#8211; list of input files</li>
-<li><strong>outfile</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; csv output file name</li>
-<li><strong>regex</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) &#8211; regular expression pattern to parse input file names</li>
-<li><strong>kwargs</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) &#8211; keyword arguments</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uri</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename</li>
+<li><strong>key</strong> (<a class="reference external" href="http://python.readthedocs.io/en/latest/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – result section to return</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">DataFrame for requested section</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">DataFrame</p>
 </td>
 </tr>
 </tbody>
@@ -630,13 +981,16 @@ parsing fails</li>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="modules.html" class="btn btn-neutral" title="bioodo" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral" title="bioodo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -667,16 +1021,17 @@ parsing fails</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1.0-alpha.0',
+            VERSION:'0.1.0+1.g2e24a1f',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
