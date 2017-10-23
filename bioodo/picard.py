@@ -1,7 +1,7 @@
 # Copyright (C) 2015 by Per Unneberg
 from blaze import resource, DataFrame
 import pandas as pd
-from .pandas import annotate_by_uri
+from .pandas import annotate_by_uri, pivot
 import logging
 import bioodo
 from bioodo import utils
@@ -46,6 +46,7 @@ def _reader(uri):
 
 @resource.register(config['align_metrics']['pattern'],
                    priority=config['align_metrics']['priority'])
+@pivot
 @annotate_by_uri
 def resource_align_metrics(uri, **kwargs):
     """Parse picard AlignmentSummaryMetrics text output file.
@@ -63,6 +64,7 @@ def resource_align_metrics(uri, **kwargs):
 
 @resource.register(config['insert_metrics']['pattern'],
                    priority=config['insert_metrics']['priority'])
+@pivot
 @annotate_by_uri
 def resource_insert_metrics(uri, key="metrics", **kwargs):
     """Parse picard InsertSummaryMetrics text output file.
@@ -88,6 +90,7 @@ def resource_insert_metrics(uri, key="metrics", **kwargs):
 
 @resource.register(config['hs_metrics']['pattern'],
                    priority=config['hs_metrics']['priority'])
+@pivot
 @annotate_by_uri
 def resource_hs_metrics(uri, **kwargs):
     """Parse picard HybridSelectionMetrics text output file.
@@ -103,6 +106,7 @@ def resource_hs_metrics(uri, **kwargs):
 
 @resource.register(config['dup_metrics']['pattern'],
                    priority=config['dup_metrics']['priority'])
+@pivot
 @annotate_by_uri
 def resource_dup_metrics(uri, key="metrics", **kwargs):
     """Parse picard DuplicationMetrics text output file.

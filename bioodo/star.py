@@ -1,7 +1,7 @@
 # Copyright (C) 2015 by Per Unneberg
 import pandas as pd
 import bioodo
-from bioodo import resource, annotate_by_uri, utils
+from bioodo import resource, annotate_by_uri, pivot, utils
 import logging
 
 
@@ -11,6 +11,7 @@ config = bioodo.__RESOURCE_CONFIG__['star']
 
 @resource.register(config['log_final']['pattern'],
                    priority=config['log_final']['priority'])
+@pivot
 @annotate_by_uri
 def resource_star_log(uri, **kwargs):
     """Parse Star Log.final.out log file"""

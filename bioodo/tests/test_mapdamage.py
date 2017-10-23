@@ -5,7 +5,7 @@ import utils
 
 fixtures = application_fixtures(application="mapdamage2")
 mapdamage_data = utils.fixture_factory(fixtures)
-mapdamage_aggregate_data_misincorporation = utils.aggregation_fixture_factory(
+mapdamage_agg_data_misincorp = utils.aggregation_fixture_factory(
     [x for x in fixtures], 2, keys=["misincorp"])
 
 
@@ -79,8 +79,9 @@ def test_mapdamage_misincorporation(mapdamage_data):
     assert (df.shape[1] == 30)
 
 
-def test_mapdamage_aggregate_misincorporation(mapdamage_aggregate_data_misincorporation):
-    module, command, version, end, pdir = mapdamage_aggregate_data_misincorporation
-    df = mapdamage.aggregate([str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
-                             regex=".*/(?P<repeat>[0-9]+)/misincorporation.txt")
+def test_mapdamage_aggregate_misincorporation(mapdamage_agg_data_misincorp):
+    module, command, version, end, pdir = mapdamage_agg_data_misincorp
+    df = mapdamage.aggregate(
+        [str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
+        regex=".*/(?P<repeat>[0-9]+)/misincorporation.txt")
     assert sorted(list(df["repeat"].unique())) == ['0', '1']

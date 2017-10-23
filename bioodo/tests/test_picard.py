@@ -33,6 +33,7 @@ def test_metrics(align_metrics):
 
 def test_aggregate_insert_data(aggregate_data_insert):
     module, command, version, end, pdir = aggregate_data_insert
-    df = picard.aggregate([str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
-                          regex=".*/(?P<repeat>[0-9]+)/medium.insert_size_metrics")
+    df = picard.aggregate(
+        [str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
+        regex=".*/(?P<repeat>[0-9]+)/medium.insert_size_metrics")
     assert sorted(list(df["repeat"].unique())) == ['0', '1']

@@ -2,7 +2,7 @@
 import re
 import pandas as pd
 import bioodo
-from bioodo import resource, annotate_by_uri, DataFrame, utils
+from bioodo import resource, annotate_by_uri, pivot, DataFrame, utils
 import logging
 
 
@@ -23,6 +23,7 @@ def _split_x(x, delim=" = "):
 
 @resource.register(config['genome_results']['pattern'],
                    priority=config['genome_results']['priority'])
+@pivot
 @annotate_by_uri
 def resource_genome_results(uri, key="Globals", **kwargs):
     with open(uri) as fh:
@@ -52,6 +53,7 @@ def resource_genome_results(uri, key="Globals", **kwargs):
 
 @resource.register(config['data_frame']['pattern'],
                    priority=config['data_frame']['priority'])
+@pivot
 @annotate_by_uri
 def resource_read_data_frame(uri, **kwargs):
     d = pd.read_table(uri)

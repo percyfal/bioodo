@@ -30,7 +30,8 @@ def test_sga_filter(sga_filter_data):
 
 def test_sga_aggregate_filter(sga_aggregate_filter_data):
     module, command, version, end, pdir = sga_aggregate_filter_data
-    df = sga.aggregate([str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
-                       regex=".*/(?P<repeat>[0-9]+)/sga.filter.log",
-                       parser=sga.resource_sga_filter)
+    df = sga.aggregate(
+        [str(x.listdir()[0]) for x in pdir.listdir() if x.isdir()],
+        regex=".*/(?P<repeat>[0-9]+)/sga.filter.log",
+        parser=sga.resource_sga_filter)
     assert sorted(list(df["repeat"].unique())) == ['0', '1']

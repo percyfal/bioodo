@@ -40,7 +40,12 @@ def recast(x, strpfmt="%b %d %H:%M:%S"):
 
 # Replace whitespace with underscore, convert percent characters to PCT
 def trim_header(x, underscore=False, percent=False):
-    return x.lstrip().rstrip().replace(" ", "_" if underscore else " ").replace("%", "PCT" if percent else "%").replace(",", "_" if underscore else " ")
+    y = x.lstrip().rstrip()
+    y = y.replace(" ", "_" if underscore else " ")
+    y = y.replace(",", "_" if underscore else " ")
+    if percent:
+        y = y.replace("%", "PCT")
+    return y
 
 
 def annotate_df(infile, parser, groupnames=["SM"]):
@@ -50,11 +55,13 @@ def annotate_df(infile, parser, groupnames=["SM"]):
 
     Args:
       infile (str): file name
-      parser (re): regexp object to parse input file name with. Metadata information to parse is stored in file name
+      parser (re): regexp object to parse input file name with.
+                   Metadata information to parse is stored in file name
 
       groupnames (list): list of parser group names to use. For each
-      name <name>, the parser should have a corresponding (?P<name>...)
-      expression
+                         name <name>, the parser should have a
+                         corresponding (?P<name>...) expression
+
     """
     df = odo(infile, pd.DataFrame)
     m = parser.parse(infile)
@@ -107,7 +114,7 @@ def aggregate_factory(module):
     Returns:
       Aggregated data frame or None if outfile given
     """
-    def aggregate(infiles, regex=None, parser=None, outfile=None, **kwargs):
+    def aggregate(infiles, parser=None, outfile=None, **kwargs):
         """Helper function to aggregate files
 
         Given a list of input files for a bioinformatics application,
@@ -138,18 +145,24 @@ def aggregate_factory(module):
 
         Args:
           infiles (list): list of input file names
-          regex (str): regex pattern to parse file
           parser (func): bioodo parser function to use in case the generic
                          parsing fails
           outfile (str): outfile name. Compression will be inferred from suffix
+          regex (str): regex pattern to parse file
           kwargs (dict): keyword arguments
+          long (bool): output data in long format (default False)
+
+        See also arguments to :func:`pandas.annotate_by_uri` for more
+        annotation options.
 
         Returns:
           Aggregated data frame or None if outfile given
 
         """
-        logger.debug("Aggregating {module} infiles {infiles} in {module} aggregate".format(
-            module=module, infiles=",".join(infiles)))
+        logger.debug(
+            "Aggregating {module} infiles".format(module=module) +
+            " {infiles} in {module} aggregate".format(
+                module=module, infiles=",".join(infiles)))
         compression = None
         if outfile:
             _map = {'gz': 'gzip', 'bz2': 'bz2', 'xz': 'xz'}
@@ -165,16 +178,13 @@ def aggregate_factory(module):
             else:
                 try:
                     df = odo.odo(f, DataFrame, **kwargs)
-                except NotImplementedError as e:
-                    logger.error("Unable to parse uri {uri}; check that file extension is handled by the {module} bioodo module; else configure extension in .bioodo.yaml".format(uri=f, module=module))
+                except NotImplementedError:
+                    logger.error("Unable to parse uri {uri};".format(uri=f) +
+                                 " check that file extension is handled by" +
+                                 " the {module}".format(module=module) +
+                                 " bioodo module;" +
+                                 " else configure extension in .bioodo.yaml")
                     raise
-            if regex:
-                logger.debug("Searching uri {} with regex {}".format(f, regex))
-                m = re.search(regex, f)
-                if m:
-                    logger.debug("adding columns {}".format(",".join(["{}={}".format(k, v) for k, v in m.groupdict().items()])))
-                    for k, v in m.groupdict().items():
-                        df[k] = v
             dflist.append(df)
         df = pd.concat(dflist)
         if outfile:
