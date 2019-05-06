@@ -1,5 +1,7 @@
 # Copyright (C) 2015 by Per Unneberg
 import re
+import os
+import sys
 import logging
 import math
 from datetime import datetime
@@ -173,6 +175,10 @@ def aggregate_factory(module):
         dflist = []
         for f in infiles:
             logger.debug("loading {}".format(f))
+            statinfo = os.stat(f)
+            if statinfo.st_size == 0:
+                logger.error("Input file '{}'".format(f) + " is empty! Either remove from list or regenerate.")
+                sys.exit(1)
             if parser:
                 df = odo.odo(parser(f, **kwargs), DataFrame)
             else:
